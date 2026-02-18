@@ -2,7 +2,7 @@ import type { HNStory } from "@/lib/types";
 import { extractDomain } from "@/lib/utils";
 
 const HN_API = "https://hacker-news.firebaseio.com/v0";
-const LOOKBACK_SECONDS = 48 * 60 * 60;
+const LOOKBACK_SECONDS = 24 * 60 * 60;
 
 interface HNApiItem {
   id: number;

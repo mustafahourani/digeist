@@ -4,7 +4,7 @@ import type { Tweet } from "@/lib/types";
 
 const X_API_BASE = "https://api.x.com/2";
 const CACHE_PATH = path.join(process.cwd(), "data", "account-cache.json");
-const LOOKBACK_MS = 48 * 60 * 60 * 1000;
+const LOOKBACK_MS = 24 * 60 * 60 * 1000;
 
 interface AccountCache {
   [username: string]: { id: string; name: string; updated_at: string };
@@ -33,6 +33,7 @@ interface XApiTweet {
     retweet_count: number;
     quote_count: number;
     reply_count: number;
+    impression_count: number;
   };
   author_id: string;
   entities?: {
@@ -67,7 +68,6 @@ function getToken(): string {
 async function searchTweets(
   query: string,
   maxResults: number = 50,
-  minLikes: number = 300
 ): Promise<{ tweets: XApiTweet[]; users: XApiUser[] }> {
   // min_faves is a premium operator not available on Basic/Pro tier,
   // so we filter by likes client-side after fetching
@@ -221,13 +221,14 @@ function buildTweet(apiTweet: XApiTweet, users: XApiUser[]): Tweet {
     likes: apiTweet.public_metrics.like_count,
     retweets: apiTweet.public_metrics.retweet_count,
     quotes: apiTweet.public_metrics.quote_count,
+    views: apiTweet.public_metrics.impression_count || 0,
     url: `https://x.com/${user?.username || "i"}/status/${apiTweet.id}`,
     created_at: apiTweet.created_at,
   };
 }
 
 function totalEngagement(tweet: Tweet): number {
-  return tweet.likes + tweet.retweets + tweet.quotes;
+  return tweet.views || (tweet.likes + tweet.retweets + tweet.quotes);
 }
 
 // Common words to ignore when discovering trending terms
@@ -342,7 +343,7 @@ function discoverTrendingTerms(
 export async function fetchTwitterSection(
   queries: string[],
   maxResultsPerQuery: number,
-  minLikes: number,
+  minViews: number,
   accounts?: string[]
 ): Promise<Tweet[]> {
   const allTweets = new Map<string, Tweet>();
@@ -351,13 +352,13 @@ export async function fetchTwitterSection(
   // 1. Keyword search
   for (const query of queries) {
     try {
-      const { tweets, users } = await searchTweets(query, maxResultsPerQuery, minLikes);
+      const { tweets, users } = await searchTweets(query, maxResultsPerQuery);
       allUsers.push(...users);
 
       for (const apiTweet of tweets) {
         if (!allTweets.has(apiTweet.id)) {
           const tweet = buildTweet(apiTweet, allUsers);
-          if (tweet.likes >= minLikes) {
+          if (tweet.views >= minViews) {
             allTweets.set(apiTweet.id, tweet);
           }
         }
@@ -385,7 +386,7 @@ export async function fetchTwitterSection(
           for (const apiTweet of tweets) {
             if (!allTweets.has(apiTweet.id)) {
               const tweet = buildTweet(apiTweet, allUsers);
-              if (tweet.likes >= minLikes) {
+              if (tweet.views >= minViews) {
                 allTweets.set(apiTweet.id, tweet);
               }
             }
@@ -408,14 +409,14 @@ export async function fetchTwitterSection(
     for (const term of trendingTerms) {
       try {
         const query = `"${term}" AI OR "${term}" launch OR "${term}" model OR "${term}"`;
-        const { tweets, users } = await searchTweets(query, 100, minLikes);
+        const { tweets, users } = await searchTweets(query, 100);
         allUsers.push(...users);
 
         let added = 0;
         for (const apiTweet of tweets) {
           if (!allTweets.has(apiTweet.id)) {
             const tweet = buildTweet(apiTweet, allUsers);
-            if (tweet.likes >= minLikes) {
+            if (tweet.views >= minViews) {
               allTweets.set(apiTweet.id, tweet);
               added++;
             }

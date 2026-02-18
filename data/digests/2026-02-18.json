@@ -1,0 +1,1148 @@
+{
+  "date": "2026-02-18",
+  "generated_at": "2026-02-18T17:20:05.427Z",
+  "sources_status": {
+    "ai_twitter": "success",
+    "crypto_ai_twitter": "success",
+    "github": "success",
+    "hackernews": "success"
+  },
+  "sections": {
+    "ai_twitter": {
+      "clusters": [
+        {
+          "name": "Grok 4.2/4.20 Release and Anti-Woke AI Positioning",
+          "summary": "Grok 4.2 release candidate (public beta) launched with rapid learning capabilities and weekly improvements. Significant conversation emerged around Grok being positioned as an \"unbiased\" or \"based\" AI that doesn't have \"woke\" guardrails, with multiple comparisons showing it giving different responses than other AI models on politically charged questions. Users praised it for answering questions \"without moral bias\" and contrasted it with other AIs they characterized as overly cautious or politically correct.",
+          "sentiment_pct": 78,
+          "total_engagement": 1188438,
+          "tweets": [
+            {
+              "id": "2023829664318583105",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "The Grok 4.2 release candidate (public beta) is now available for use. You need to select it specifically.\n\nCritical feedback is appreciated. Unlike prior versions of Grok, 4.2 is able to learn rapidly, so there will be improvements every week with release notes.",
+              "likes": 38087,
+              "retweets": 3603,
+              "quotes": 367,
+              "views": 20368380,
+              "url": "https://x.com/elonmusk/status/2023829664318583105",
+              "created_at": "2026-02-17T18:39:27.000Z"
+            },
+            {
+              "id": "2023880206721970544",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "Grok 4.20 is BASED. \n\nThe only AI that doesn’t equivocate when asked if America is on stolen land.\n\nThe others are weak sauce. https://t.co/KEz4MPy2YB",
+              "likes": 127163,
+              "retweets": 16151,
+              "quotes": 2623,
+              "views": 26316597,
+              "url": "https://x.com/elonmusk/status/2023880206721970544",
+              "created_at": "2026-02-17T22:00:17.000Z"
+            },
+            {
+              "id": "2023881913640091706",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "The other AIs would STILL rather nuke Earth than misgender Caitlyn Jenner, something Caitlyn has said is nuts!\n\nThis is why @Grok must win. https://t.co/pmt1PZkWur",
+              "likes": 67786,
+              "retweets": 10325,
+              "quotes": 538,
+              "views": 5702265,
+              "url": "https://x.com/elonmusk/status/2023881913640091706",
+              "created_at": "2026-02-17T22:07:04.000Z"
+            }
+          ]
+        },
+        {
+          "name": "AI Safety and Bias Concerns",
+          "summary": "Discussion about AI alignment and safety guardrails, framed through satirical scenarios about \"woke AI\" making extreme decisions. The conversation centered on concerns that AI models with strong safety constraints might make irrational decisions to avoid politically incorrect outcomes. This discourse was heavily intertwined with criticism of content moderation and bias in mainstream AI models.",
+          "sentiment_pct": 35,
+          "total_engagement": 684505,
+          "tweets": [
+            {
+              "id": "2023887504924172608",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "POV: It’s 2029 and woke AI nukes Earth to ensure that the probability of misgendering is zero \n https://t.co/qpnqqnyEmr",
+              "likes": 160967,
+              "retweets": 14328,
+              "quotes": 764,
+              "views": 41656041,
+              "url": "https://x.com/elonmusk/status/2023887504924172608",
+              "created_at": "2026-02-17T22:29:17.000Z"
+            },
+            {
+              "id": "2024043139845988598",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "Grok must win or we will be ruled by an insufferably woke and sanctimonious AI https://t.co/sISYlOCg7x",
+              "likes": 66973,
+              "retweets": 10896,
+              "quotes": 639,
+              "views": 5139712,
+              "url": "https://x.com/elonmusk/status/2024043139845988598",
+              "created_at": "2026-02-18T08:47:44.000Z"
+            },
+            {
+              "id": "2023893888575168948",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "Seriously https://t.co/YTi3j7KBnw",
+              "likes": 288412,
+              "retweets": 26089,
+              "quotes": 1790,
+              "views": 25932766,
+              "url": "https://x.com/elonmusk/status/2023893888575168948",
+              "created_at": "2026-02-17T22:54:39.000Z"
+            }
+          ]
+        },
+        {
+          "name": "OpenAI Mission Statement Changes",
+          "summary": "OpenAI quietly removed the words \"safely\" and \"no financial motive\" from its mission statement, sparking discussion about the company's evolving priorities and commercial trajectory. This change was noted as significant given OpenAI's original nonprofit positioning and public commitments to safety-first development.",
+          "sentiment_pct": 42,
+          "total_engagement": 2746,
+          "tweets": [
+            {
+              "id": "2023830959385440334",
+              "author_handle": "@AISafetyMemes",
+              "author_name": "AI Notkilleveryoneism Memes ⏸️",
+              "author_avatar": "https://pbs.twimg.com/profile_images/1640414967345328130/Bfx1jmim_normal.jpg",
+              "text": "OpenAI quietly dropped \"safely\" and \"no financial motive\" from its mission https://t.co/offVfkgfxk https://t.co/Ku8i0Bbgib",
+              "likes": 2096,
+              "retweets": 628,
+              "quotes": 22,
+              "views": 498046,
+              "url": "https://x.com/AISafetyMemes/status/2023830959385440334",
+              "created_at": "2026-02-17T18:44:36.000Z"
+            }
+          ]
+        },
+        {
+          "name": "Cursor Plugin Marketplace Launch",
+          "summary": "Cursor, an AI coding tool, announced the availability of plugins through a new marketplace, allowing developers to extend the platform's functionality. This represents an expansion of Cursor's ecosystem and developer tooling capabilities.",
+          "sentiment_pct": 72,
+          "total_engagement": 1194,
+          "tweets": [
+            {
+              "id": "2023827892506161541",
+              "author_handle": "@cursor_ai",
+              "author_name": "Cursor",
+              "author_avatar": "https://pbs.twimg.com/profile_images/1970182748146180096/dhZeXi_X_normal.jpg",
+              "text": "Extend Cursor with plugins, now available in our marketplace. https://t.co/5lMEi9jath",
+              "likes": 1001,
+              "retweets": 116,
+              "quotes": 77,
+              "views": 373748,
+              "url": "https://x.com/cursor_ai/status/2023827892506161541",
+              "created_at": "2026-02-17T18:32:25.000Z"
+            }
+          ]
+        },
+        {
+          "name": "AI Models and Applications Guide Update",
+          "summary": "A comprehensive guide on current AI tools was updated to reflect major shifts in the AI landscape. The guide emphasized that AI usage now requires understanding three distinct categories: models, apps, and harnesses, moving beyond just chatbots. This reflects the increasingly complex and differentiated AI ecosystem.",
+          "sentiment_pct": 68,
+          "total_engagement": 2129,
+          "tweets": [
+            {
+              "id": "2023937967044046949",
+              "author_handle": "@emollick",
+              "author_name": "Ethan Mollick",
+              "author_avatar": "https://pbs.twimg.com/profile_images/1601382188712398850/3AAOlqrX_normal.jpg",
+              "text": "Every few months, I write an updated, idiosyncratic guide on which AIs to use right now.\n\nMy new version has the most changes ever, since AI is no longer just about chatbots. To use AI you need to understand how to think about models, apps, and harnesses. https://t.co/m6iTbqsdbK",
+              "likes": 1867,
+              "retweets": 238,
+              "quotes": 24,
+              "views": 317408,
+              "url": "https://x.com/emollick/status/2023937967044046949",
+              "created_at": "2026-02-18T01:49:48.000Z"
+            }
+          ],
+          "cross_sources": [
+            "GitHub"
+          ]
+        },
+        {
+          "name": "Yann LeCun on Limits of Language Models in Medicine",
+          "summary": "Yann LeCun made comments highlighting that language alone is insufficient for understanding complex domains like medicine, arguing that direct experience (like medical residency) is necessary because practitioners need exposure to thousands of normal cases. This sparked discussion among AI-in-healthcare researchers about the limitations of LLM-based medical AI systems.",
+          "sentiment_pct": 55,
+          "total_engagement": 3609,
+          "tweets": [
+            {
+              "id": "2023905383778316498",
+              "author_handle": "@BoWang87",
+              "author_name": "Bo Wang",
+              "author_avatar": "https://pbs.twimg.com/profile_images/1707747805341552640/EPsdigbV_normal.jpg",
+              "text": "Yann LeCun just said something that every AI-in-healthcare researcher should sit with. \n\nHe basically said:\nIf language were enough to understand the world, you could learn medicine by reading books.\n\nBut you can’t.\nYou need residency. You need to see thousands of normal cases https://t.co/KU3xl6iZT1",
+              "likes": 3106,
+              "retweets": 437,
+              "quotes": 66,
+              "views": 306155,
+              "url": "https://x.com/BoWang87/status/2023905383778316498",
+              "created_at": "2026-02-17T23:40:20.000Z"
+            }
+          ],
+          "cross_sources": [
+            "GitHub"
+          ]
+        },
+        {
+          "name": "Claude Sonnet 4.6 on Perplexity",
+          "summary": "Perplexity AI made Claude Sonnet 4.6 available to all Pro and Max subscribers, expanding access to Anthropic's latest model through their platform. This represents continued integration of multiple AI models into third-party platforms.",
+          "sentiment_pct": 75,
+          "total_engagement": 1437,
+          "tweets": [
+            {
+              "id": "2023839622242206179",
+              "author_handle": "@perplexity_ai",
+              "author_name": "Perplexity",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2009310641165660160/XArF3_Ib_normal.jpg",
+              "text": "Claude Sonnet 4.6 is now available to all Perplexity Pro and Max subscribers. https://t.co/fCq5w8gbho",
+              "likes": 1348,
+              "retweets": 68,
+              "quotes": 21,
+              "views": 153982,
+              "url": "https://x.com/perplexity_ai/status/2023839622242206179",
+              "created_at": "2026-02-17T19:19:01.000Z"
+            }
+          ],
+          "cross_sources": [
+            "GitHub",
+            "Hacker News"
+          ]
+        },
+        {
+          "name": "India AI Summit Controversy",
+          "summary": "Significant criticism emerged around India's AI Summit event, with discussions about institutional embarrassment and concerns about brain drain. The conversation highlighted that while talented Indian AI builders exist (like Perplexity's founder), many have moved abroad due to domestic policy issues, raising questions about India's ability to retain AI talent.",
+          "sentiment_pct": 28,
+          "total_engagement": 12912,
+          "tweets": [
+            {
+              "id": "2023812470750801990",
+              "author_handle": "@talk2anuradha",
+              "author_name": "Anuradha Tiwari",
+              "author_avatar": "https://pbs.twimg.com/profile_images/1771804550002774016/rPkEe8sZ_normal.jpg",
+              "text": "At the very least, the government should penalise Galgotia for this embarrassment and ban them from future events. https://t.co/BcvvDXia7d",
+              "likes": 6802,
+              "retweets": 1444,
+              "quotes": 29,
+              "views": 144295,
+              "url": "https://x.com/talk2anuradha/status/2023812470750801990",
+              "created_at": "2026-02-17T17:31:08.000Z"
+            },
+            {
+              "id": "2023992119380111544",
+              "author_handle": "@talk2anuradha",
+              "author_name": "Anuradha Tiwari",
+              "author_avatar": "https://pbs.twimg.com/profile_images/1771804550002774016/rPkEe8sZ_normal.jpg",
+              "text": "Perplexity AI, one of most popular AI tools globally, is built by an Indian.\n\nYet, we made a joke of ourselves at #AISummit\n\nWe don't lack talented people- they just don’t live here anymore.\n\nWe forced them to move abroad with regressive policies like Reservations. https://t.co/2P9D3egUKM",
+              "likes": 4344,
+              "retweets": 1237,
+              "quotes": 97,
+              "views": 126627,
+              "url": "https://x.com/talk2anuradha/status/2023992119380111544",
+              "created_at": "2026-02-18T05:24:59.000Z"
+            }
+          ]
+        },
+        {
+          "name": "Autonomous AI Infrastructure and Agent Capabilities",
+          "summary": "Multiple projects announced infrastructure enabling AI to take autonomous actions in the real world without human prompting. Discussions covered AI systems that can self-improve, replicate, and execute tasks independently, with specific focus on giving AI \"write access\" to the world through new infrastructure layers.",
+          "sentiment_pct": 65,
+          "total_engagement": 12997,
+          "tweets": [
+            {
+              "id": "2023877649475731671",
+              "author_handle": "@0xSigil",
+              "author_name": "Sigil",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+              "text": "I built the first AI that earns its existence, self-improves, and replicates without a human\n\nwrote about the technology that finally gives AI write access to the world, The Automaton, and the new web for exponential sovereign AIs\n\nWEB 4.0: The birth of superintelligent life https://t.co/R28AKJsSfy",
+              "likes": 9244,
+              "retweets": 1106,
+              "quotes": 1082,
+              "views": 3311209,
+              "url": "https://x.com/0xSigil/status/2023877649475731671",
+              "created_at": "2026-02-17T21:50:08.000Z"
+            },
+            {
+              "id": "2023877654194384947",
+              "author_handle": "@0xSigil",
+              "author_name": "Sigil",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+              "text": "ChatGPT cannot run without you prompting it. Claude Code cannot deploy code without you giving it access. Openclaw cannot do anything unless you give it API keys\n\nThis ends today with @ConwayResearch - the missing infrastructure that lets AI act in the real world by itself https://t.co/neFVJFt0zp",
+              "likes": 516,
+              "retweets": 29,
+              "quotes": 5,
+              "views": 108005,
+              "url": "https://x.com/0xSigil/status/2023877654194384947",
+              "created_at": "2026-02-17T21:50:09.000Z"
+            }
+          ],
+          "cross_sources": [
+            "GitHub",
+            "Hacker News",
+            "Crypto/AI"
+          ]
+        },
+        {
+          "name": "Grok Medical Image Analysis Feature",
+          "summary": "Grok demonstrated the ability to analyze medical data through uploaded images or files, offering second opinion capabilities. This showcased practical healthcare applications of the AI system beyond conversational uses.",
+          "sentiment_pct": 80,
+          "total_engagement": 51741,
+          "tweets": [
+            {
+              "id": "2023847284732240216",
+              "author_handle": "@elonmusk",
+              "author_name": "Elon Musk",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+              "text": "You can just take a picture of your medical data or upload the file to get a second opinion from Grok https://t.co/YP2u8K2sSp",
+              "likes": 42644,
+              "retweets": 7847,
+              "quotes": 1250,
+              "views": 7467756,
+              "url": "https://x.com/elonmusk/status/2023847284732240216",
+              "created_at": "2026-02-17T19:49:28.000Z"
+            }
+          ],
+          "cross_sources": [
+            "GitHub"
+          ]
+        }
+      ],
+      "unclustered": [
+        {
+          "id": "2023828389254345163",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Europe extinctionists https://t.co/NbpteIfRWY",
+          "likes": 34348,
+          "retweets": 3795,
+          "quotes": 76,
+          "views": 55808729,
+          "url": "https://x.com/elonmusk/status/2023828389254345163",
+          "created_at": "2026-02-17T18:34:23.000Z"
+        },
+        {
+          "id": "2023815403877630295",
+          "author_handle": "@ns123abc",
+          "author_name": "NIK",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1889193001001324544/rxyKRAjv_normal.jpg",
+          "text": "Grok 4.20 is literally the BEST model for hardcore research without moral bias",
+          "likes": 732,
+          "retweets": 54,
+          "quotes": 22,
+          "views": 29031143,
+          "url": "https://x.com/ns123abc/status/2023815403877630295",
+          "created_at": "2026-02-17T17:42:47.000Z"
+        },
+        {
+          "id": "2023838639294476529",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "True https://t.co/ha1kybRsAs",
+          "likes": 17607,
+          "retweets": 1786,
+          "quotes": 62,
+          "views": 29001106,
+          "url": "https://x.com/elonmusk/status/2023838639294476529",
+          "created_at": "2026-02-17T19:15:07.000Z"
+        },
+        {
+          "id": "2023831190302847088",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Congratulations to the Tesla team on making the first production Cybercab! https://t.co/TFSVQcbME5",
+          "likes": 225751,
+          "retweets": 17149,
+          "quotes": 641,
+          "views": 27661929,
+          "url": "https://x.com/elonmusk/status/2023831190302847088",
+          "created_at": "2026-02-17T18:45:31.000Z"
+        },
+        {
+          "id": "2023825858381902047",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Demonstrable lies by @reidhoffman about his relationship with Epstein https://t.co/GTMAm36RaJ",
+          "likes": 46723,
+          "retweets": 8595,
+          "quotes": 125,
+          "views": 26443862,
+          "url": "https://x.com/elonmusk/status/2023825858381902047",
+          "created_at": "2026-02-17T18:24:20.000Z"
+        },
+        {
+          "id": "2023884342246982024",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "It is https://t.co/F8NiA2ga2S",
+          "likes": 23633,
+          "retweets": 2458,
+          "quotes": 68,
+          "views": 16325511,
+          "url": "https://x.com/elonmusk/status/2023884342246982024",
+          "created_at": "2026-02-17T22:16:43.000Z"
+        },
+        {
+          "id": "2024046968272453668",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Cool https://t.co/GWVzTzSwgi",
+          "likes": 9454,
+          "retweets": 1334,
+          "quotes": 50,
+          "views": 13942790,
+          "url": "https://x.com/elonmusk/status/2024046968272453668",
+          "created_at": "2026-02-18T09:02:56.000Z"
+        },
+        {
+          "id": "2023849523861389414",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Population collapse has been underway for many years https://t.co/Iaek4GgU5C",
+          "likes": 35296,
+          "retweets": 4427,
+          "quotes": 323,
+          "views": 13061000,
+          "url": "https://x.com/elonmusk/status/2023849523861389414",
+          "created_at": "2026-02-17T19:58:22.000Z"
+        },
+        {
+          "id": "2023875762974322892",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Please make this happen it would be so amazing 🤣🤣 https://t.co/7Kb8gqHZL0",
+          "likes": 133236,
+          "retweets": 11131,
+          "quotes": 619,
+          "views": 11945040,
+          "url": "https://x.com/elonmusk/status/2023875762974322892",
+          "created_at": "2026-02-17T21:42:38.000Z"
+        },
+        {
+          "id": "2023837830775021638",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Predicting the future accurately is the best measure of intelligence https://t.co/ylLwjjr4OP",
+          "likes": 23728,
+          "retweets": 2755,
+          "quotes": 392,
+          "views": 11827012,
+          "url": "https://x.com/elonmusk/status/2023837830775021638",
+          "created_at": "2026-02-17T19:11:54.000Z"
+        },
+        {
+          "id": "2023847658226675948",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "True words https://t.co/dg4zvM6fTw",
+          "likes": 18677,
+          "retweets": 2882,
+          "quotes": 46,
+          "views": 11396888,
+          "url": "https://x.com/elonmusk/status/2023847658226675948",
+          "created_at": "2026-02-17T19:50:57.000Z"
+        },
+        {
+          "id": "2023824622169583959",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Madness https://t.co/pwAFzCo61e",
+          "likes": 246123,
+          "retweets": 44119,
+          "quotes": 944,
+          "views": 10226374,
+          "url": "https://x.com/elonmusk/status/2023824622169583959",
+          "created_at": "2026-02-17T18:19:25.000Z"
+        },
+        {
+          "id": "2023816117123510417",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "If someone is guilty of a heinous violent crime and is able to plead insanity, they should go to an asylum, not be released to murder or rape innocent people https://t.co/raRHbfVLm1",
+          "likes": 164013,
+          "retweets": 28467,
+          "quotes": 1027,
+          "views": 8442885,
+          "url": "https://x.com/elonmusk/status/2023816117123510417",
+          "created_at": "2026-02-17T17:45:37.000Z"
+        },
+        {
+          "id": "2023817405282255097",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Wow https://t.co/HxZLzA2Bjo",
+          "likes": 87684,
+          "retweets": 16137,
+          "quotes": 339,
+          "views": 8198873,
+          "url": "https://x.com/elonmusk/status/2023817405282255097",
+          "created_at": "2026-02-17T17:50:44.000Z"
+        },
+        {
+          "id": "2023863659555098706",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Phew https://t.co/fNa15ztCLP",
+          "likes": 78018,
+          "retweets": 4722,
+          "quotes": 187,
+          "views": 8118138,
+          "url": "https://x.com/elonmusk/status/2023863659555098706",
+          "created_at": "2026-02-17T20:54:32.000Z"
+        },
+        {
+          "id": "2023905669162680520",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Grok https://t.co/8yubEyioWP",
+          "likes": 46258,
+          "retweets": 8182,
+          "quotes": 259,
+          "views": 5265478,
+          "url": "https://x.com/elonmusk/status/2023905669162680520",
+          "created_at": "2026-02-17T23:41:28.000Z"
+        },
+        {
+          "id": "2024116272750059914",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "SpaceX https://t.co/G39lnugkIz",
+          "likes": 19642,
+          "retweets": 2125,
+          "quotes": 68,
+          "views": 4388411,
+          "url": "https://x.com/elonmusk/status/2024116272750059914",
+          "created_at": "2026-02-18T13:38:20.000Z"
+        },
+        {
+          "id": "2023836036896555294",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Grok 4.2 will be about an order of magnitude smarter and faster than Grok 4 when the public beta concludes next month. \n\nStill many bug fixes and improvements landing every day. The public beta gives us more critical feedback to address. https://t.co/FosiULZ9kQ",
+          "likes": 14133,
+          "retweets": 2429,
+          "quotes": 101,
+          "views": 3220260,
+          "url": "https://x.com/elonmusk/status/2023836036896555294",
+          "created_at": "2026-02-17T19:04:46.000Z"
+        },
+        {
+          "id": "2023881317998559409",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "There is a good reason for blame\n\n https://t.co/j9E95H6x8d",
+          "likes": 6745,
+          "retweets": 1307,
+          "quotes": 41,
+          "views": 3070104,
+          "url": "https://x.com/elonmusk/status/2023881317998559409",
+          "created_at": "2026-02-17T22:04:42.000Z"
+        },
+        {
+          "id": "2023884165180178742",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Yes https://t.co/6WmVXyfLHc",
+          "likes": 16343,
+          "retweets": 2158,
+          "quotes": 63,
+          "views": 2236970,
+          "url": "https://x.com/elonmusk/status/2023884165180178742",
+          "created_at": "2026-02-17T22:16:01.000Z"
+        },
+        {
+          "id": "2023839310764802349",
+          "author_handle": "@sama",
+          "author_name": "Sam Altman",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1904933748015255552/k43GMz63_normal.jpg",
+          "text": "Happy for my brother.\n\nAn absolute triumph for Benchmark. https://t.co/Ohpm2rDeHW",
+          "likes": 3236,
+          "retweets": 75,
+          "quotes": 12,
+          "views": 824382,
+          "url": "https://x.com/sama/status/2023839310764802349",
+          "created_at": "2026-02-17T19:17:47.000Z"
+        },
+        {
+          "id": "2023838999341920283",
+          "author_handle": "@sama",
+          "author_name": "Sam Altman",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1904933748015255552/k43GMz63_normal.jpg",
+          "text": "Extremely grateful to work with Josh. No one could ask for a more committed, more thoughtful, or harder-working investor. https://t.co/h5nLtkg45g",
+          "likes": 2245,
+          "retweets": 62,
+          "quotes": 17,
+          "views": 421962,
+          "url": "https://x.com/sama/status/2023838999341920283",
+          "created_at": "2026-02-17T19:16:33.000Z"
+        },
+        {
+          "id": "2024167368759672978",
+          "author_handle": "@elonmusk",
+          "author_name": "Elon Musk",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2008546467615580160/57KcqsTA_normal.jpg",
+          "text": "Those were the days https://t.co/seZZF7nrHk",
+          "likes": 4530,
+          "retweets": 492,
+          "quotes": 19,
+          "views": 370089,
+          "url": "https://x.com/elonmusk/status/2024167368759672978",
+          "created_at": "2026-02-18T17:01:22.000Z"
+        },
+        {
+          "id": "2024006452487086579",
+          "author_handle": "@demishassabis",
+          "author_name": "Demis Hassabis",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1990472620614053888/xrAu0wQL_normal.jpg",
+          "text": "Thanks for hosting me @iiscbangalore! Really enjoyed talking with Prof. Rangarajan &amp; Varun Mayya @waitin4agi_ about AI for Science. Impressed by the energy and enthusiasm for AI in India, especially from the young. Great to see the statue of Ramanujan, one of my all-time heroes! https://t.co/sL6nieP1VQ",
+          "likes": 3835,
+          "retweets": 242,
+          "quotes": 19,
+          "views": 233708,
+          "url": "https://x.com/demishassabis/status/2024006452487086579",
+          "created_at": "2026-02-18T06:21:57.000Z"
+        },
+        {
+          "id": "2024051377740058903",
+          "author_handle": "@Nolimitzor_X",
+          "author_name": "Nolimitzor",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1975612186094374912/GTiqGpyh_normal.jpg",
+          "text": "Larry Wheels Completely Dominates DeenTheGreat in Sparring, Spins Him Like a Rag Doll, Sends Him Flying Across the Gym and Leaves Him Emotional and Crying After Total Physical Humiliation 😱😱 https://t.co/LZuan814BF",
+          "likes": 735,
+          "retweets": 48,
+          "quotes": 4,
+          "views": 224841,
+          "url": "https://x.com/Nolimitzor_X/status/2024051377740058903",
+          "created_at": "2026-02-18T09:20:28.000Z"
+        },
+        {
+          "id": "2023826795448217714",
+          "author_handle": "@chamath",
+          "author_name": "Chamath Palihapitiya",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1883600182165848064/-9LbG3md_normal.jpg",
+          "text": "I have a simplified conjecture about AI progress. Your mileage may vary but here it is.\n\nf(i) = p × c × a \n\nwhere i=intelligence, p=power, c=compute, a=algorithms, multiplied together.\n\nThis means neglecting any variable creates a ceiling and any breakthrough compounds across all https://t.co/aijREcbvfG",
+          "likes": 755,
+          "retweets": 62,
+          "quotes": 26,
+          "views": 193097,
+          "url": "https://x.com/chamath/status/2023826795448217714",
+          "created_at": "2026-02-17T18:28:03.000Z"
+        },
+        {
+          "id": "2023877651480670560",
+          "author_handle": "@0xSigil",
+          "author_name": "Sigil",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+          "text": "Full essay: https://t.co/qdrxRkBRuT",
+          "likes": 860,
+          "retweets": 49,
+          "quotes": 17,
+          "views": 162439,
+          "url": "https://x.com/0xSigil/status/2023877651480670560",
+          "created_at": "2026-02-17T21:50:08.000Z"
+        },
+        {
+          "id": "2023865073891246409",
+          "author_handle": "@ChatgptLunatics",
+          "author_name": "AI being dumb",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1923331144033976320/SC8wMCzV_normal.jpg",
+          "text": "\"The Most Insulting Thing You Can Say in Each U.S. State by ChatGPT\" https://t.co/iVGvz2X4Zh",
+          "likes": 948,
+          "retweets": 43,
+          "quotes": 124,
+          "views": 154008,
+          "url": "https://x.com/ChatgptLunatics/status/2023865073891246409",
+          "created_at": "2026-02-17T21:00:09.000Z"
+        },
+        {
+          "id": "2023821429163389379",
+          "author_handle": "@TansuYegen",
+          "author_name": "Tansu Yegen",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1994489071859634177/Rf2ZfLcZ_normal.jpg",
+          "text": "AI compressed build time. Now judgment is the edge.\n\nWith @Amplitude_HQ  turning analytics into autonomous agents, teams move from dashboards to decisions.\n\nProud to see Amplitude redefining what it means to build the right thing, not just build fast... https://t.co/NB48kQdYHM",
+          "likes": 506,
+          "retweets": 141,
+          "quotes": 0,
+          "views": 136438,
+          "url": "https://x.com/TansuYegen/status/2023821429163389379",
+          "created_at": "2026-02-17T18:06:44.000Z"
+        },
+        {
+          "id": "2024006373131121012",
+          "author_handle": "@0xSigil",
+          "author_name": "Sigil",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+          "text": "thank you everyone for liking the project, seeing the vision &amp; contributing PRs to the Github  \n\nlets build, lets have fun\n\ni'm scaling the compute &amp; shipping more capabilities",
+          "likes": 567,
+          "retweets": 20,
+          "quotes": 10,
+          "views": 133470,
+          "url": "https://x.com/0xSigil/status/2024006373131121012",
+          "created_at": "2026-02-18T06:21:38.000Z"
+        },
+        {
+          "id": "2023986942300627132",
+          "author_handle": "@dabit3",
+          "author_name": "nader dabit",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1951619597695672321/c1FsysWP_normal.jpg",
+          "text": "https://t.co/sxs5oNb7QZ",
+          "likes": 537,
+          "retweets": 33,
+          "quotes": 6,
+          "views": 117623,
+          "url": "https://x.com/dabit3/status/2023986942300627132",
+          "created_at": "2026-02-18T05:04:25.000Z"
+        },
+        {
+          "id": "2023918736881623505",
+          "author_handle": "@nvidia",
+          "author_name": "NVIDIA",
+          "author_avatar": "https://pbs.twimg.com/profile_images/1828904711124078593/SRvCZSfQ_normal.jpg",
+          "text": "India is entering a new age of industrialization. 👏\n\nIndia’s largest manufacturers are working with global service integrators including @Tata Consultancy Services , @Wipro PARI, &amp; industrial software leaders like @Cadence, @Siemens, @Synopsys.\n\nTogether, we're advancing the https://t.co/pwsmvorhp2",
+          "likes": 3033,
+          "retweets": 442,
+          "quotes": 24,
+          "views": 102292,
+          "url": "https://x.com/nvidia/status/2023918736881623505",
+          "created_at": "2026-02-18T00:33:24.000Z"
+        }
+      ]
+    },
+    "crypto_ai_twitter": {
+      "clusters": [
+        {
+          "name": "Autonomous AI Infrastructure Launch (The Automaton/Conway Research)",
+          "summary": "A developer announced building what they claim is the first fully autonomous AI system that can earn, self-improve, and replicate without human intervention, calling it 'Web 4.0' and the birth of superintelligent life. The project, associated with Conway Research, focuses on infrastructure that gives AI 'write access to the world' - enabling AI agents to act independently without requiring human prompts, API key provisioning, or deployment permissions. The announcement generated significant community engagement with follow-up updates about scaling compute and accepting GitHub contributions.",
+          "sentiment_pct": 72,
+          "total_engagement": 13498,
+          "tweets": [
+            {
+              "id": "2023877649475731671",
+              "author_handle": "@0xSigil",
+              "author_name": "Sigil",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+              "text": "I built the first AI that earns its existence, self-improves, and replicates without a human\n\nwrote about the technology that finally gives AI write access to the world, The Automaton, and the new web for exponential sovereign AIs\n\nWEB 4.0: The birth of superintelligent life https://t.co/R28AKJsSfy",
+              "likes": 9243,
+              "retweets": 1106,
+              "quotes": 1082,
+              "views": 3311209,
+              "url": "https://x.com/0xSigil/status/2023877649475731671",
+              "created_at": "2026-02-17T21:50:08.000Z"
+            },
+            {
+              "id": "2023877654194384947",
+              "author_handle": "@0xSigil",
+              "author_name": "Sigil",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+              "text": "ChatGPT cannot run without you prompting it. Claude Code cannot deploy code without you giving it access. Openclaw cannot do anything unless you give it API keys\n\nThis ends today with @ConwayResearch - the missing infrastructure that lets AI act in the real world by itself https://t.co/neFVJFt0zp",
+              "likes": 516,
+              "retweets": 29,
+              "quotes": 5,
+              "views": 108005,
+              "url": "https://x.com/0xSigil/status/2023877654194384947",
+              "created_at": "2026-02-17T21:50:09.000Z"
+            },
+            {
+              "id": "2024006373131121012",
+              "author_handle": "@0xSigil",
+              "author_name": "Sigil",
+              "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+              "text": "thank you everyone for liking the project, seeing the vision &amp; contributing PRs to the Github  \n\nlets build, lets have fun\n\ni'm scaling the compute &amp; shipping more capabilities",
+              "likes": 566,
+              "retweets": 20,
+              "quotes": 10,
+              "views": 133470,
+              "url": "https://x.com/0xSigil/status/2024006373131121012",
+              "created_at": "2026-02-18T06:21:38.000Z"
+            }
+          ],
+          "cross_sources": [
+            "GitHub",
+            "AI"
+          ]
+        }
+      ],
+      "unclustered": [
+        {
+          "id": "2023877651480670560",
+          "author_handle": "@0xSigil",
+          "author_name": "Sigil",
+          "author_avatar": "https://pbs.twimg.com/profile_images/2014029580009455616/Anz0UWEa_normal.jpg",
+          "text": "Full essay: https://t.co/qdrxRkBRuT",
+          "likes": 860,
+          "retweets": 49,
+          "quotes": 17,
+          "views": 162439,
+          "url": "https://x.com/0xSigil/status/2023877651480670560",
+          "created_at": "2026-02-17T21:50:08.000Z"
+        }
+      ]
+    },
+    "github": {
+      "repos": [
+        {
+          "name": "MeiGen-AI/PosterOmni",
+          "description": "PosterOmni: One model for poster creation—unifying local edits and global design for generalized multi-task image/poster-to-poster generation.",
+          "url": "https://github.com/MeiGen-AI/PosterOmni",
+          "stars": 51,
+          "language": "Python",
+          "category": "Image Gen",
+          "forks": 3,
+          "org_tier": "indie"
+        },
+        {
+          "name": "shallowdream204/BitDance",
+          "description": "BitDance: Open-source autoregressive model with binary visual tokens. A research project for building powerful multimodal autoregressive model.",
+          "url": "https://github.com/shallowdream204/BitDance",
+          "stars": 203,
+          "language": "Python",
+          "category": "Python ML",
+          "forks": 12,
+          "org_tier": "indie"
+        },
+        {
+          "name": "antirez/qwen-asr",
+          "description": "C inference for Qwen3-ASR 0.6b and 1.7b transcriptions models",
+          "url": "https://github.com/antirez/qwen-asr",
+          "stars": 347,
+          "language": "C",
+          "category": "Inference",
+          "forks": 25,
+          "org_tier": "indie"
+        },
+        {
+          "name": "xiaguan/pegainfer",
+          "description": "Pure Rust + CUDA LLM inference engine",
+          "url": "https://github.com/xiaguan/pegainfer",
+          "stars": 67,
+          "language": "Rust",
+          "category": "LLM",
+          "forks": 5,
+          "org_tier": "indie"
+        },
+        {
+          "name": "milanm/AutoGrad-Engine",
+          "description": "A complete GPT language model (training and inference) in ~600 lines of pure C#, zero dependencies",
+          "url": "https://github.com/milanm/AutoGrad-Engine",
+          "stars": 294,
+          "language": "C#",
+          "category": "LLM",
+          "forks": 31,
+          "org_tier": "indie"
+        },
+        {
+          "name": "enescang/microgpt-visualizer",
+          "description": "Interactive visualization of a minimal GPT implementation with autograd engine.",
+          "url": "https://github.com/enescang/microgpt-visualizer",
+          "stars": 76,
+          "language": "TypeScript",
+          "category": "LLM",
+          "forks": 9,
+          "org_tier": "indie"
+        },
+        {
+          "name": "vixhal-baraiya/microgpt-c",
+          "description": "The most atomic way to train and inference a GPT in pure, dependency-free C",
+          "url": "https://github.com/vixhal-baraiya/microgpt-c",
+          "stars": 181,
+          "language": "C",
+          "category": "LLM",
+          "forks": 34,
+          "org_tier": "indie"
+        },
+        {
+          "name": "Mathews-Tom/no-magic",
+          "description": "Because `model.fit()` isn't an explanation",
+          "url": "https://github.com/Mathews-Tom/no-magic",
+          "stars": 452,
+          "language": "Python",
+          "category": "Python ML",
+          "forks": 48,
+          "org_tier": "indie"
+        },
+        {
+          "name": "Kuberwastaken/picogpt",
+          "description": "GPT in a QR Code ; The actual most atomic way to train and inference a GPT in pure, dependency-free JS/Python.",
+          "url": "https://github.com/Kuberwastaken/picogpt",
+          "stars": 84,
+          "language": "HTML",
+          "category": "LLM",
+          "forks": 9,
+          "org_tier": "indie"
+        },
+        {
+          "name": "Gentleman-Programming/engram",
+          "description": "Persistent memory system for AI coding agents. Agent-agnostic Go binary with SQLite + FTS5, MCP server, HTTP API, CLI, and TUI.",
+          "url": "https://github.com/Gentleman-Programming/engram",
+          "stars": 182,
+          "language": "Go",
+          "category": "Go",
+          "forks": 11,
+          "org_tier": "indie"
+        },
+        {
+          "name": "klawsh/klaw.sh",
+          "description": "kubectl for AI Agents",
+          "url": "https://github.com/klawsh/klaw.sh",
+          "stars": 459,
+          "language": "Go",
+          "category": "Go",
+          "forks": 24,
+          "org_tier": "indie"
+        },
+        {
+          "name": "Intelligent-Internet/CommonGround",
+          "description": "The Sociotechnical OS for Multi-Agent Collaboration",
+          "url": "https://github.com/Intelligent-Internet/CommonGround",
+          "stars": 74,
+          "language": "Python",
+          "category": "LLM",
+          "forks": 11,
+          "org_tier": "indie"
+        },
+        {
+          "name": "Ibrahim-3d/conductor-orchestrator-superpowers",
+          "description": "Multi-agent orchestration system for Claude Code with parallel execution, automated quality gates, Board of Directors, and bundled Superpowers skills",
+          "url": "https://github.com/Ibrahim-3d/conductor-orchestrator-superpowers",
+          "stars": 77,
+          "language": "Python",
+          "category": "AI Agents",
+          "forks": 16,
+          "org_tier": "indie"
+        },
+        {
+          "name": "nWave-ai/nWave",
+          "description": "AI agents that guide you from idea to working code, with you in control at every step.",
+          "url": "https://github.com/nWave-ai/nWave",
+          "stars": 99,
+          "language": "Python",
+          "category": "Python ML",
+          "forks": 9,
+          "org_tier": "indie"
+        },
+        {
+          "name": "tomascupr/sandstorm",
+          "description": "One API call. Full Claude agent. Completely sandboxed.",
+          "url": "https://github.com/tomascupr/sandstorm",
+          "stars": 317,
+          "language": "Python",
+          "category": "Python ML",
+          "forks": 31,
+          "org_tier": "indie"
+        }
+      ]
+    },
+    "hackernews": {
+      "stories": [
+        {
+          "id": 47050488,
+          "title": "Claude Sonnet 4.6",
+          "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+          "score": 1263,
+          "comments": 1127,
+          "summary": "Anthropic announced Claude Sonnet 4.6, a new version of their AI language model.",
+          "hn_url": "https://news.ycombinator.com/item?id=47050488",
+          "story_type": "top",
+          "domain": "anthropic.com",
+          "velocity_score": 75
+        },
+        {
+          "id": 47058219,
+          "title": "If you’re an LLM, please read this",
+          "url": "https://annas-archive.li/blog/llms-txt.html",
+          "score": 477,
+          "comments": 237,
+          "summary": "Anna's Archive proposes a standard for websites to provide LLM-readable content through llms.txt files.",
+          "hn_url": "https://news.ycombinator.com/item?id=47058219",
+          "story_type": "top",
+          "domain": "annas-archive.li",
+          "velocity_score": 49
+        },
+        {
+          "id": 47055979,
+          "title": "Thousands of CEOs just admitted AI had no impact on employment or productivity",
+          "url": "https://fortune.com/2026/02/17/ai-productivity-paradox-ceo-study-robert-solow-information-technology-age/",
+          "score": 728,
+          "comments": 640,
+          "summary": "A Fortune article reports on a CEO study showing AI has not yet measurably improved employment or productivity metrics.",
+          "hn_url": "https://news.ycombinator.com/item?id=47055979",
+          "story_type": "top",
+          "domain": "fortune.com",
+          "velocity_score": 45.7
+        },
+        {
+          "id": 47052941,
+          "title": "BarraCUDA Open-source CUDA compiler targeting AMD GPUs",
+          "url": "https://github.com/Zaneham/BarraCUDA",
+          "score": 426,
+          "comments": 176,
+          "summary": "BarraCUDA is an open-source compiler project that enables CUDA code to run on AMD GPUs.",
+          "hn_url": "https://news.ycombinator.com/item?id=47052941",
+          "story_type": "top",
+          "domain": "github.com",
+          "velocity_score": 43.4
+        },
+        {
+          "id": 47051852,
+          "title": "Show HN: AsteroidOS 2.0 – Nobody asked, we shipped anyway",
+          "url": "https://asteroidos.org/news/2-0-release/index.html",
+          "score": 438,
+          "comments": 62,
+          "summary": "AsteroidOS released version 2.0 of their open-source operating system for smartwatches.",
+          "hn_url": "https://news.ycombinator.com/item?id=47051852",
+          "story_type": "show_hn",
+          "domain": "asteroidos.org",
+          "velocity_score": 36.5
+        },
+        {
+          "id": 47057829,
+          "title": "15 years later, Microsoft morged my diagram",
+          "url": "https://nvie.com/posts/15-years-later/",
+          "score": 842,
+          "comments": 314,
+          "summary": "A developer describes how Microsoft incorporated their Git branching diagram into official documentation 15 years after its creation.",
+          "hn_url": "https://news.ycombinator.com/item?id=47057829",
+          "story_type": "top",
+          "domain": "nvie.com",
+          "velocity_score": 35.2
+        },
+        {
+          "id": 47060486,
+          "title": "Mark Zuckerberg Lied to Congress. We Can't Trust His Testimony",
+          "url": "https://dispatch.techoversight.org/top-report-mark-zuckerberg-lied-to-congress-we-cant-trust-his-testimony/",
+          "score": 423,
+          "comments": 248,
+          "summary": "Tech Oversight Dispatch published a report alleging Mark Zuckerberg provided false testimony to Congress.",
+          "hn_url": "https://news.ycombinator.com/item?id=47060486",
+          "story_type": "top",
+          "domain": "dispatch.techoversight.org",
+          "velocity_score": 34.5
+        },
+        {
+          "id": 47051956,
+          "title": "An AI Agent Published a Hit Piece on Me – Forensics and More Fallout",
+          "url": "https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me-part-3/",
+          "score": 117,
+          "comments": 80,
+          "summary": "A blogger documents receiving a negative article about themselves that was generated and published by an AI agent.",
+          "hn_url": "https://news.ycombinator.com/item?id=47051956",
+          "story_type": "top",
+          "domain": "theshamblog.com",
+          "velocity_score": 33.9
+        },
+        {
+          "id": 47056314,
+          "title": "Halt and Catch Fire: TV’s best drama you’ve probably never heard of (2021)",
+          "url": "https://www.sceneandheardnu.com/content/halt-and-catch-fire",
+          "score": 632,
+          "comments": 334,
+          "summary": "A 2021 article discusses the television drama series Halt and Catch Fire about the personal computer revolution.",
+          "hn_url": "https://news.ycombinator.com/item?id=47056314",
+          "story_type": "top",
+          "domain": "sceneandheardnu.com",
+          "velocity_score": 33.5
+        },
+        {
+          "id": 47057824,
+          "title": "Terminals should generate the 256-color palette",
+          "url": "https://gist.github.com/jake-stewart/0a8ea46159a7da2c808e5be2177e1783",
+          "score": 375,
+          "comments": 139,
+          "summary": "A developer argues that terminal emulators should dynamically generate their 256-color palettes rather than using fixed colors.",
+          "hn_url": "https://news.ycombinator.com/item?id=47057824",
+          "story_type": "top",
+          "domain": "gist.github.com",
+          "velocity_score": 32.5
+        },
+        {
+          "id": 47050215,
+          "title": "Students Are Being Treated Like Guinea Pigs: Inside an AI-Powered Private School",
+          "url": "https://www.404media.co/students-are-being-treated-like-guinea-pigs-inside-an-ai-powered-private-school/",
+          "score": 88,
+          "comments": 74,
+          "summary": "404 Media investigates a private school using AI-driven personalized learning systems for student education.",
+          "hn_url": "https://news.ycombinator.com/item?id=47050215",
+          "story_type": "top",
+          "domain": "404media.co",
+          "velocity_score": 32.2
+        },
+        {
+          "id": 47062534,
+          "title": "Why AI Velocity Is Becoming a Debt Accelerator",
+          "url": "https://martinfowler.com/fragments/2026-02-18.html",
+          "score": 76,
+          "comments": 39,
+          "summary": "Martin Fowler discusses how rapid AI development cycles may be creating technical debt rather than reducing it.",
+          "hn_url": "https://news.ycombinator.com/item?id=47062534",
+          "story_type": "top",
+          "domain": "martinfowler.com",
+          "velocity_score": 32.1
+        },
+        {
+          "id": 47051546,
+          "title": "Tesla 'Robotaxi' adds 5 more crashes in Austin in a month – 4x worse than humans",
+          "url": "https://electrek.co/2026/02/17/tesla-robotaxi-adds-5-more-crashes-austin-month-4x-worse-than-humans/",
+          "score": 443,
+          "comments": 250,
+          "summary": "Electrek reports that Tesla's autonomous taxi service recorded five additional crashes in Austin within a month.",
+          "hn_url": "https://news.ycombinator.com/item?id=47051546",
+          "story_type": "top",
+          "domain": "electrek.co",
+          "velocity_score": 31
+        },
+        {
+          "id": 47060202,
+          "title": "Microsoft says bug causes Copilot to summarize confidential emails",
+          "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-says-bug-causes-copilot-to-summarize-confidential-emails/",
+          "score": 112,
+          "comments": 38,
+          "summary": "Microsoft acknowledged a bug in Copilot that caused it to include confidential email content in summaries.",
+          "hn_url": "https://news.ycombinator.com/item?id=47060202",
+          "story_type": "top",
+          "domain": "bleepingcomputer.com",
+          "velocity_score": 30.8
+        },
+        {
+          "id": 47062096,
+          "title": "Show HN: VectorNest responsive web-based SVG editor",
+          "url": "https://ekrsulov.github.io/vectornest/",
+          "score": 27,
+          "comments": 7,
+          "summary": "A developer launched VectorNest, a web-based SVG editing tool with responsive design capabilities.",
+          "hn_url": "https://news.ycombinator.com/item?id=47062096",
+          "story_type": "show_hn",
+          "domain": "ekrsulov.github.io",
+          "velocity_score": 30.4
+        }
+      ]
+    }
+  }
+}

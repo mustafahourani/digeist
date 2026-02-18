@@ -1,4 +1,4 @@
-import { Heart, Repeat2, Quote } from "lucide-react";
+import { Heart, Repeat2, Eye } from "lucide-react";
 import { formatEngagement, relativeTime } from "@/lib/utils";
 import type { Tweet } from "@/lib/types";
 
@@ -45,8 +45,8 @@ export function TweetEmbed({ tweet }: TweetEmbedProps) {
           {formatEngagement(tweet.retweets)}
         </span>
         <span className="flex items-center gap-1.5">
-          <Quote className="h-3.5 w-3.5" />
-          {formatEngagement(tweet.quotes)}
+          <Eye className="h-3.5 w-3.5" />
+          {formatEngagement(tweet.views)}
         </span>
       </div>
     </a>

@@ -295,13 +295,13 @@ async function fetchAllSources(): Promise<FetchResults> {
     fetchTwitterSection(
       keywords.ai_twitter.search_queries,
       keywords.ai_twitter.max_results_per_query,
-      keywords.ai_twitter.min_likes,
+      keywords.ai_twitter.min_views,
       keywords.ai_twitter.accounts
     ),
     fetchTwitterSection(
       keywords.crypto_ai_twitter.search_queries,
       keywords.crypto_ai_twitter.max_results_per_query,
-      keywords.crypto_ai_twitter.min_likes,
+      keywords.crypto_ai_twitter.min_views,
       keywords.crypto_ai_twitter.accounts
     ),
     fetchGitHubTrending(keywords.github.topics, keywords.github.min_stars),

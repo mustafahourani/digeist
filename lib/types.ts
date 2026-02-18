@@ -10,6 +10,7 @@ export interface Tweet {
   likes: number;
   retweets: number;
   quotes: number;
+  views: number;
   url: string;
   created_at: string;
 }

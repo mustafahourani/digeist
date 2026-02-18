@@ -64,7 +64,10 @@
       "StanfordHAI",
       "bentossell",
       "bowang87",
-      "alibaba_qwen"
+      "alibaba_qwen",
+      "ns123abc",
+      "talk2anuradha",
+      "0xSigil"
     ],
     "search_queries": [
       "OpenAI OR Anthropic OR DeepMind OR Mistral OR xAI",
@@ -85,7 +88,7 @@
       "AI agent OR AI assistant OR AI tool OR AI app",
       "AI viral OR AI breakthrough OR \"this is insane\" AI OR \"game changer\" AI"
     ],
-    "min_likes": 200,
+    "min_views": 100000,
     "max_results_per_query": 300
   },
   "crypto_ai_twitter": {
@@ -123,7 +126,8 @@
       "danielesesta",
       "MustStopMurad",
       "aixbt_agent",
-      "truth_terminal"
+      "truth_terminal",
+      "0xSigil"
     ],
     "search_queries": [
       "ElizaOS OR \"Virtuals Protocol\" OR \"AI16z\" OR \"Autonolas\"",
@@ -137,9 +141,11 @@
       "\"Allora Network\" OR \"Vana\" OR \"Sentient AGI\" OR \"Nillion\" OR \"Sahara AI\"",
       "\"AI agent\" crypto OR onchain AI OR web3 AI OR \"DeFAI\"",
       "aixbt OR \"AI trading\" crypto OR \"AI alpha\" OR \"truth terminal\"",
-      "\"Nous Research\" OR \"Morpheus AI\" OR \"0G Labs\" OR \"Pond GNN\" OR PondGNN OR getgrass OR \"Grass IO\""
+      "\"Nous Research\" OR \"Morpheus AI\" OR \"0G Labs\" OR \"Pond GNN\" OR PondGNN OR getgrass OR \"Grass IO\"",
+      "crypto AI OR blockchain AI OR \"AI agents\" web3 OR decentralized AI",
+      "AI token launch OR AI crypto launch OR AI protocol launch OR DePIN launch"
     ],
-    "min_likes": 300,
+    "min_views": 100000,
     "max_results_per_query": 300
   },
   "github": {
