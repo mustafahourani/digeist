@@ -82,19 +82,17 @@ export function GitHubItem({ repo }: GitHubItemProps) {
               </span>
             </div>
             {/* Forks column */}
-            {repo.forks != null && repo.forks > 0 && (
-              <div className="flex flex-col items-center gap-0.5">
-                {hasForksDelta && (
-                  <span className="text-[12px] font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
-                    +{formatEngagement(repo.forks_delta!)}
-                  </span>
-                )}
-                <span className="inline-flex items-center justify-center gap-1 min-w-[4rem] text-[12px] font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full">
-                  <GitFork className="h-3 w-3" />
-                  {formatEngagement(repo.forks)}
+            <div className="flex flex-col items-center gap-0.5">
+              {hasForksDelta && (
+                <span className="text-[12px] font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                  +{formatEngagement(repo.forks_delta!)}
                 </span>
-              </div>
-            )}
+              )}
+              <span className="inline-flex items-center justify-center gap-1 min-w-[4rem] text-[12px] font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full">
+                <GitFork className="h-3 w-3" />
+                {formatEngagement(repo.forks ?? 0)}
+              </span>
+            </div>
           </div>
         </div>
       </div>
