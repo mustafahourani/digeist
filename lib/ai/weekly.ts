@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { Digest, WeeklyDigest, WeeklyTheme } from "@/lib/types";
+import type { Digest } from "@/lib/types";
 import { SYSTEM_PROMPT } from "./prompts";
 
 const MODEL = "claude-sonnet-4-5-20250929";
@@ -23,10 +23,9 @@ interface WeeklyAIResult {
     total_engagement: number;
   }[];
   source_highlights: {
-    ai_twitter: string[];
-    crypto_ai_twitter: string[];
     github: string[];
     hackernews: string[];
+    reddit: string[];
   };
   week_over_week: string;
 }
@@ -40,18 +39,12 @@ export async function generateWeeklyRollup(
   // Build a summary of each day's digest for the AI
   const dailySummaries = digests.map((d) => ({
     date: d.date,
-    ai_clusters: d.sections.ai_twitter.clusters.map((c) => ({
-      name: c.name,
-      sentiment_pct: c.sentiment_pct,
-      total_engagement: c.total_engagement,
-    })),
-    crypto_clusters: d.sections.crypto_ai_twitter.clusters.map((c) => ({
-      name: c.name,
-      sentiment_pct: c.sentiment_pct,
-      total_engagement: c.total_engagement,
-    })),
-    top_github: d.sections.github.repos.slice(0, 5).map((r) => r.name),
-    top_hn: d.sections.hackernews.stories.slice(0, 5).map((s) => s.title),
+    top_github: [...d.sections.github.new_repos, ...d.sections.github.trending_repos].slice(0, 5).map((r) => r.name),
+    top_hn: [...d.sections.hackernews.hot_stories, ...d.sections.hackernews.rising_stories].slice(0, 5).map((s) => s.title),
+    top_reddit: [
+      ...(d.sections.reddit?.hot_posts || []),
+      ...(d.sections.reddit?.rising_posts || []),
+    ].slice(0, 5).map((p) => `[r/${p.subreddit}] ${p.title}`),
   }));
 
   const prompt = `You are generating a weekly rollup from ${digests.length} daily AI industry digests.
@@ -62,8 +55,8 @@ ${JSON.stringify(dailySummaries, null, 2)}
 ${previousWeekSummary ? `Last week's summary for comparison: "${previousWeekSummary}"` : "This is the first weekly rollup, so no previous week comparison is available."}
 
 Generate:
-1. **Top 10 themes of the week**: The most significant clusters/topics across all daily digests, ranked by cumulative engagement. For each, note how many days it appeared.
-2. **Source highlights**: Top 5 items per source for the week (cluster names for Twitter, repo names for GitHub, story titles for HN).
+1. **Top 10 themes of the week**: The most significant topics across all daily digests, ranked by importance. For each, note how many days it appeared.
+2. **Source highlights**: Top 5 items per source for the week (repo names for GitHub, story titles for HN, post titles for Reddit).
 3. **Week-over-week comparison**: ${previousWeekSummary ? "A brief 2-3 sentence comparison noting what's new this week vs last week." : "A brief 2-3 sentence summary of this week's overall themes."}
 
 Respond with this exact JSON structure:
@@ -78,10 +71,9 @@ Respond with this exact JSON structure:
     }
   ],
   "source_highlights": {
-    "ai_twitter": ["top 5 cluster names"],
-    "crypto_ai_twitter": ["top 5 cluster names"],
     "github": ["top 5 repo names"],
-    "hackernews": ["top 5 story titles"]
+    "hackernews": ["top 5 story titles"],
+    "reddit": ["top 5 post titles"]
   },
   "week_over_week": "Comparison or summary string"
 }`;

@@ -2,49 +2,19 @@ export const SYSTEM_PROMPT = `You are a neutral analyst who summarizes AI indust
 You are objective, factual, and never editorialize. You describe what happened and why people care, without hot takes or opinions.
 Always respond with valid JSON matching the requested schema exactly.`;
 
-export function clusterPrompt(
-  tweets: { id: string; text: string; likes: number; retweets: number; quotes: number }[],
-  section: "AI" | "AI x Crypto"
-): string {
-  return `You are analyzing ${tweets.length} tweets from the past 24 hours about ${section}.
-
-Group these tweets into clusters based on the theme, event, or discourse they reference. Cluster names should capture the specific conversation happening that day.
-
-Most clusters will be focused themes (e.g., "Open Source vs Closed Model Debate", "AI Coding Tools Comparison Wave"). When a specific project or launch genuinely dominated the conversation, name the cluster after it (e.g., "Gemini 3.0 Launch").
-
-Avoid overly broad names like "AI News" or "Various Updates." The cluster name should make someone immediately understand what conversation was happening that day.
-
-For each cluster:
-1. Name: Focused, descriptive theme name
-2. Summary: 2-4 neutral, factual sentences describing what the cluster is about and why people care
-3. Sentiment: Percentage of positive sentiment (0-100). Be granular - there's a big difference between 55% and 90%.
-4. Representative tweets: Pick 2-3 tweet IDs that best represent this cluster
-5. Total engagement: Sum of likes + retweets + quotes for all tweets in the cluster
-
-Tweets that don't fit any cluster should be listed separately as "unclustered" with just their IDs.
-
-Here are the tweets:
-${JSON.stringify(tweets, null, 2)}
-
-Respond with this exact JSON structure:
-{
-  "clusters": [
-    {
-      "name": "string",
-      "summary": "string",
-      "sentiment_pct": number,
-      "total_engagement": number,
-      "tweet_ids": ["id1", "id2", "id3"]
-    }
-  ],
-  "unclustered_ids": ["id1", "id2"]
-}`;
-}
-
 export function hnSummaryPrompt(
   stories: { id: number; title: string; url: string }[]
 ): string {
-  return `Generate a one-line neutral summary for each of these Hacker News stories. Each summary should explain what the story is about in a single sentence, factually and without opinion.
+  return `Write a clear, informative 1-sentence summary (max 120 chars) for each Hacker News story. Target audience: AI practitioners scanning a daily digest.
+
+RULES:
+- Start with what it IS or what HAPPENED — be concrete and specific
+- "Anthropic released Claude Sonnet 4.6 with improved coding and agentic capabilities" > "Anthropic announced a new AI model"
+- Mention key technical specifics when possible: model names, benchmarks, frameworks, metrics
+- If the title already says it clearly, keep it as-is or lightly rephrase
+- Don't speculate beyond what the title and URL tell you
+- No hype words ("revolutionary", "game-changing", "groundbreaking")
+- Factual and neutral tone
 
 Stories:
 ${JSON.stringify(stories, null, 2)}
@@ -52,8 +22,32 @@ ${JSON.stringify(stories, null, 2)}
 Respond with this exact JSON structure:
 {
   "summaries": [
-    { "id": number, "summary": "One factual sentence about the story" }
+    { "id": number, "summary": "One clear factual sentence" }
   ]
 }`;
 }
 
+export function redditTitleCleanupPrompt(
+  posts: { id: string; title: string; subreddit: string }[]
+): string {
+  return `Clean up these Reddit post titles for a daily AI digest. Many Reddit titles are jargony, rambling, or have unnecessary filler. Rewrite them to be brief and scannable.
+
+RULES:
+- If the title is already short and clear, return it AS-IS (don't rewrite for the sake of it)
+- Remove filler: "So I just...", "Does anyone else...", "Am I the only one who...", "PSA:", "BREAKING:", "[D]", "[P]", "[R]", etc.
+- Shorten long rambling titles to their core point (max ~120 chars — two lines is fine)
+- Keep technical specifics: model names, tool names, frameworks
+- Don't editorialize or add opinions — just clean up
+- Preserve the meaning exactly — don't change what it's about
+- No hype words, no emojis
+
+Posts:
+${JSON.stringify(posts, null, 2)}
+
+Respond with this exact JSON structure:
+{
+  "titles": [
+    { "id": "string", "title": "cleaned up title" }
+  ]
+}`;
+}

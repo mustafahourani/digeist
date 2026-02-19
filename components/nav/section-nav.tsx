@@ -2,13 +2,12 @@
 
 import { cn } from "@/lib/utils";
 
-export type SectionId = "ai-twitter" | "crypto-twitter" | "github" | "hackernews";
+export type SectionId = "github" | "hackernews" | "reddit";
 
 export const sectionTabs: { id: SectionId; label: string }[] = [
-  { id: "ai-twitter", label: "X / AI" },
-  { id: "crypto-twitter", label: "X / Crypto" },
   { id: "github", label: "GitHub" },
   { id: "hackernews", label: "Hacker News" },
+  { id: "reddit", label: "Reddit" },
 ];
 
 interface SectionNavProps {

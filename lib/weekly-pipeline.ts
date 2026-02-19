@@ -3,6 +3,7 @@ import { generateWeeklyRollup } from "./ai/weekly";
 import { getISOWeek } from "./utils";
 import type { WeeklyDigest } from "./types";
 
+
 function getWeekDates(weekStr?: string): { start: string; end: string; week: string } {
   const now = new Date();
 

@@ -17,12 +17,9 @@ export async function GET(request: NextRequest) {
       success: true,
       date: digest.date,
       sources: digest.sources_status,
-      clusters: {
-        ai_twitter: digest.sections.ai_twitter.clusters.length,
-        crypto_ai_twitter: digest.sections.crypto_ai_twitter.clusters.length,
-      },
-      github_repos: digest.sections.github.repos.length,
-      hn_stories: digest.sections.hackernews.stories.length,
+      github_repos: digest.sections.github.new_repos.length + digest.sections.github.trending_repos.length,
+      hn_stories: digest.sections.hackernews.hot_stories.length + digest.sections.hackernews.rising_stories.length,
+      reddit_posts: digest.sections.reddit.hot_posts.length + digest.sections.reddit.rising_posts.length,
     });
   } catch (error) {
     console.error("Cron generate error:", error);

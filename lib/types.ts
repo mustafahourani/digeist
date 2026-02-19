@@ -1,33 +1,5 @@
-export type SourceName = "ai_twitter" | "crypto_ai_twitter" | "github" | "hackernews";
+export type SourceName = "github" | "hackernews" | "reddit";
 export type SourceStatus = "success" | "error" | "skipped";
-
-export interface Tweet {
-  id: string;
-  author_handle: string;
-  author_name: string;
-  author_avatar?: string;
-  text: string;
-  likes: number;
-  retweets: number;
-  quotes: number;
-  views: number;
-  url: string;
-  created_at: string;
-}
-
-export interface Cluster {
-  name: string;
-  summary: string;
-  sentiment_pct: number;
-  total_engagement: number;
-  tweets: Tweet[];
-  cross_sources?: string[];
-}
-
-export interface TwitterSection {
-  clusters: Cluster[];
-  unclustered: Tweet[];
-}
 
 export interface GitHubRepo {
   name: string;
@@ -38,12 +10,15 @@ export interface GitHubRepo {
   language: string;
   category?: string;
   forks?: number;
+  forks_delta?: number;
   is_trending?: boolean;
   org_tier?: "major" | "known" | "indie";
+  created_at?: string;
 }
 
 export interface GitHubSection {
-  repos: GitHubRepo[];
+  new_repos: GitHubRepo[];
+  trending_repos: GitHubRepo[];
 }
 
 export interface HNStory {
@@ -57,17 +32,46 @@ export interface HNStory {
   story_type?: "top" | "show_hn" | "ask_hn" | "new_riser";
   domain?: string;
   velocity_score?: number;
+  score_delta?: number;
+  comments_delta?: number;
+  created_at?: string;
 }
 
 export interface HNSection {
-  stories: HNStory[];
+  hot_stories: HNStory[];
+  rising_stories: HNStory[];
+}
+
+export interface RedditPost {
+  id: string;
+  title: string;
+  url: string;
+  score: number;
+  comments: number;
+  summary: string;
+  reddit_url: string;
+  subreddit: string;
+  author: string;
+  domain: string;
+  is_self: boolean;
+  upvote_ratio: number;
+  post_type?: "link" | "self";
+  velocity_score?: number;
+  score_delta?: number;
+  comments_delta?: number;
+  created_at?: string;
+  flair?: string;
+}
+
+export interface RedditSection {
+  hot_posts: RedditPost[];
+  rising_posts: RedditPost[];
 }
 
 export interface DigestSections {
-  ai_twitter: TwitterSection;
-  crypto_ai_twitter: TwitterSection;
   github: GitHubSection;
   hackernews: HNSection;
+  reddit: RedditSection;
 }
 
 export interface Digest {
@@ -93,11 +97,9 @@ export interface WeeklyDigest {
   generated_at: string;
   top_themes: WeeklyTheme[];
   source_highlights: {
-    ai_twitter: string[];
-    crypto_ai_twitter: string[];
     github: string[];
     hackernews: string[];
+    reddit: string[];
   };
   week_over_week: string;
 }
-

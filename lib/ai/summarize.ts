@@ -1,10 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-import type { Tweet, Cluster, TwitterSection, HNStory } from "@/lib/types";
-import {
-  SYSTEM_PROMPT,
-  clusterPrompt,
-  hnSummaryPrompt,
-} from "./prompts";
+import type { HNStory, RedditPost } from "@/lib/types";
+import { SYSTEM_PROMPT, hnSummaryPrompt, redditTitleCleanupPrompt } from "./prompts";
 
 const MODEL = "claude-sonnet-4-5-20250929";
 
@@ -57,58 +53,6 @@ function parseJSON<T>(text: string): T {
   return JSON.parse(text.trim());
 }
 
-// Cluster tweets into themes
-
-interface ClusterResult {
-  clusters: {
-    name: string;
-    summary: string;
-    sentiment_pct: number;
-    total_engagement: number;
-    tweet_ids: string[];
-  }[];
-  unclustered_ids: string[];
-}
-
-export async function clusterTweets(
-  tweets: Tweet[],
-  section: "AI" | "AI x Crypto"
-): Promise<TwitterSection> {
-  if (tweets.length === 0) {
-    return { clusters: [], unclustered: [] };
-  }
-
-  const tweetData = tweets.map((t) => ({
-    id: t.id,
-    text: t.text,
-    likes: t.likes,
-    retweets: t.retweets,
-    quotes: t.quotes,
-  }));
-
-  const prompt = clusterPrompt(tweetData, section);
-  const response = await callClaude(prompt);
-  const result = parseJSON<ClusterResult>(response);
-
-  const tweetMap = new Map(tweets.map((t) => [t.id, t]));
-
-  const clusters: Cluster[] = result.clusters.map((c) => ({
-    name: c.name,
-    summary: c.summary,
-    sentiment_pct: c.sentiment_pct,
-    total_engagement: c.total_engagement,
-    tweets: c.tweet_ids
-      .map((id) => tweetMap.get(id))
-      .filter((t): t is Tweet => t != null),
-  }));
-
-  const unclustered = result.unclustered_ids
-    .map((id) => tweetMap.get(id))
-    .filter((t): t is Tweet => t != null);
-
-  return { clusters, unclustered };
-}
-
 // Summarize HN stories
 
 interface HNSummaryResult {
@@ -136,3 +80,29 @@ export async function summarizeHNStories(stories: HNStory[]): Promise<HNStory[]>
   }));
 }
 
+// Clean up Reddit post titles (remove jargon, shorten rambling titles)
+
+interface RedditTitleResult {
+  titles: { id: string; title: string }[];
+}
+
+export async function cleanRedditTitles(posts: RedditPost[]): Promise<RedditPost[]> {
+  if (posts.length === 0) return [];
+
+  const postData = posts.map((p) => ({
+    id: p.id,
+    title: p.title,
+    subreddit: p.subreddit,
+  }));
+
+  const prompt = redditTitleCleanupPrompt(postData);
+  const response = await callClaude(prompt);
+  const result = parseJSON<RedditTitleResult>(response);
+
+  const titleMap = new Map(result.titles.map((t) => [t.id, t.title]));
+
+  return posts.map((post) => ({
+    ...post,
+    title: titleMap.get(post.id) || post.title,
+  }));
+}
