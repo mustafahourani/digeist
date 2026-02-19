@@ -80,10 +80,7 @@ export async function runWeeklyPipeline(weekStr?: string): Promise<WeeklyDigest>
     start_date: start,
     end_date: end,
     generated_at: new Date().toISOString(),
-    top_themes: result.top_themes.map((t) => ({
-      ...t,
-      representative_tweets: [],
-    })),
+    top_themes: result.top_themes,
     source_highlights: result.source_highlights,
     week_over_week: result.week_over_week,
   };

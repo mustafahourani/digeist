@@ -1,10 +1,7 @@
 import { existsSync } from "fs";
 import path from "path";
 import { runDailyPipeline } from "../lib/pipeline";
-
-function getToday(): string {
-  return new Date().toISOString().slice(0, 10);
-}
+import { getToday } from "../lib/utils";
 
 async function main() {
   const today = getToday();

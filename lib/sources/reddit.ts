@@ -3,10 +3,10 @@ import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
 import type { RedditPost } from "@/lib/types";
 import { extractDomain } from "@/lib/utils";
+import { aiRelevanceScore, discussionHeat, MS_PER_DAY } from "@/lib/scoring";
 import keywords from "@/config/keywords.json";
 
 const REDDIT_BASE = "https://www.reddit.com";
-const MS_PER_DAY = 86_400_000;
 const USER_AGENT = "Digeist/1.0 (AI digest aggregator)";
 const COMMENT_CACHE_PATH = path.join(process.cwd(), "data", "reddit-comment-cache.json");
 
@@ -121,29 +121,7 @@ async function fetchAllSubreddits(): Promise<Map<string, RedditApiPost>> {
   return allPosts;
 }
 
-// ─── Layer 2: Tiered AI Keywords ─────────────────────────────────
-
-const AI_KEYWORDS_T1 =
-  /\b(llm|large.language.model|openai|anthropic|claude|deepseek|deepmind|chatgpt|gpt-[3-5o]|o[13]-|sonnet|opus|haiku|gemini.\d|grok|rlhf|agi|language.model|foundation.model|diffusion.model|transformer.model|neural.network|deep.learning|machine.learning|fine.tun|generative.ai|multimodal|hugging.face|mistral|meta.ai|llama.\d|qwen|phi-\d|stable.diffusion)/i;
-
-const AI_KEYWORDS_T2 =
-  /\b(ai|agent|inference|embedding|vector|rag|gpu|nvidia|cuda|tpu|benchmark|reasoning|alignment|safety|context.window|token|prompt|mcp|model.context.protocol|cursor|windsurf|devin|replit|v0|bolt|coding.agent|vibe.cod|agentic|perplexity|groq|copilot|transformer|reinforcement.learning)/i;
-
-const AI_KEYWORDS_T3 =
-  /\b(model|training|dataset|parameters|weights|latency|throughput|api|scaling|open.source|python|tensor|compute|cloud|quantiz|optimization|distill)/i;
-
-function aiRelevanceScore(title: string, selftext?: string): number {
-  const text = selftext ? `${title} ${selftext.slice(0, 500)}` : title;
-  const t1 = (text.match(new RegExp(AI_KEYWORDS_T1, "gi")) || []).length;
-  const t2 = (text.match(new RegExp(AI_KEYWORDS_T2, "gi")) || []).length;
-  const t3 = (text.match(new RegExp(AI_KEYWORDS_T3, "gi")) || []).length;
-
-  const t3Effective = t1 + t2 > 0 ? t3 : 0;
-  const raw = t1 * 1.0 + t2 * 0.6 + t3Effective * 0.3;
-  return raw === 0 ? 0 : Math.min(1, 0.5 + raw * 0.15);
-}
-
-// ─── Layer 3: Subreddit Tier Scoring ─────────────────────────────
+// ─── Layer 2: Subreddit Tier Scoring ─────────────────────────────
 
 const SUBREDDIT_TIER_CORE = new Set([
   "autogpt", "langchain", "localllama",
@@ -206,13 +184,6 @@ function upvoteRatioMultiplier(ratio: number): number {
   if (ratio > 0.85) return 1.0;   // Normal
   if (ratio > 0.70) return 0.9;   // Somewhat controversial
   return 0.8;                      // Very controversial or low quality
-}
-
-function discussionHeat(score: number, comments: number): number {
-  if (score === 0) return 1;
-  const ratio = comments / score;
-  const clamped = Math.min(ratio, 2.0);
-  return 1 + clamped * 0.25;
 }
 
 // ─── Layer 6: Composite Multi-Signal Scoring ─────────────────────

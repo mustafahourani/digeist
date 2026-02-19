@@ -4,10 +4,10 @@ import path from "path";
 import type { GitHubRepo } from "@/lib/types";
 import { getYesterday, NON_LATIN_RE } from "@/lib/utils";
 import { getDigest } from "@/lib/storage";
+import { MS_PER_DAY } from "@/lib/scoring";
 
 const GITHUB_API = "https://api.github.com";
 const STAR_CACHE_PATH = path.join(process.cwd(), "data", "github-star-cache.json");
-const MS_PER_DAY = 86_400_000;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 

@@ -1,17 +1,6 @@
 import { ExternalLink, MessageSquare, Clock, ThumbsUp } from "lucide-react";
 import type { HNStory } from "@/lib/types";
-import { extractDomain, formatEngagement } from "@/lib/utils";
-
-function storyAge(dateStr: string): string {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const hours = Math.floor(diff / 3_600_000);
-  if (hours < 1) return "just now";
-  if (hours === 1) return "1h ago";
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days === 1) return "1d ago";
-  return `${days}d ago`;
-}
+import { extractDomain, formatEngagement, timeAgo } from "@/lib/utils";
 
 interface HNItemProps {
   story: HNStory;
@@ -48,7 +37,7 @@ export function HNItem({ story }: HNItemProps) {
             {story.created_at && (
               <span className="flex items-center gap-1 text-[12px] text-muted-foreground">
                 <Clock className="h-3 w-3" />
-                {storyAge(story.created_at)}
+                {timeAgo(story.created_at)}
               </span>
             )}
             {hasExternalUrl && domain && (

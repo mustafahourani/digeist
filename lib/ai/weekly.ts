@@ -1,18 +1,6 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type { Digest } from "@/lib/types";
 import { SYSTEM_PROMPT } from "./prompts";
-
-const MODEL = "claude-sonnet-4-5-20250929";
-
-function getClient(): Anthropic {
-  return new Anthropic();
-}
-
-function parseJSON<T>(text: string): T {
-  const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const raw = jsonMatch ? jsonMatch[1].trim() : text.trim();
-  return JSON.parse(raw);
-}
+import { getClient, MODEL, parseJSON } from "./client";
 
 interface WeeklyAIResult {
   top_themes: {

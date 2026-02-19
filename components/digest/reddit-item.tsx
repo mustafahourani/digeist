@@ -1,17 +1,6 @@
 import { ThumbsUp, MessageSquare, Clock } from "lucide-react";
 import type { RedditPost } from "@/lib/types";
-import { extractDomain, formatEngagement } from "@/lib/utils";
-
-function postAge(dateStr: string): string {
-  const diff = Date.now() - new Date(dateStr).getTime();
-  const hours = Math.floor(diff / 3_600_000);
-  if (hours < 1) return "just now";
-  if (hours === 1) return "1h ago";
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.floor(hours / 24);
-  if (days === 1) return "1d ago";
-  return `${days}d ago`;
-}
+import { extractDomain, formatEngagement, timeAgo } from "@/lib/utils";
 
 interface RedditItemProps {
   post: RedditPost;
@@ -47,7 +36,7 @@ export function RedditItem({ post }: RedditItemProps) {
             {post.created_at && (
               <>
                 <Clock className="h-3 w-3" />
-                {postAge(post.created_at)}
+                {timeAgo(post.created_at)}
               </>
             )}
           </div>

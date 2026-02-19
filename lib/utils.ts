@@ -52,24 +52,15 @@ export function getISOWeek(dateStr: string): string {
   return `${year}-W${String(weekNumber).padStart(2, "0")}`;
 }
 
-export function relativeTime(dateStr: string): string {
-  const now = Date.now();
-  const then = new Date(dateStr).getTime();
-  const diff = now - then;
-  const minutes = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days = Math.floor(diff / 86400000);
-
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
+export function timeAgo(dateStr: string): string {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const hours = Math.floor(diff / 3_600_000);
+  if (hours < 1) return "just now";
+  if (hours === 1) return "1h ago";
   if (hours < 24) return `${hours}h ago`;
-  if (days < 7) return `${days}d ago`;
-  return formatDateShort(dateStr.split("T")[0]);
-}
-
-export function truncate(str: string, maxLen: number): string {
-  if (str.length <= maxLen) return str;
-  return str.slice(0, maxLen - 1) + "\u2026";
+  const days = Math.floor(hours / 24);
+  if (days === 1) return "1d ago";
+  return `${days}d ago`;
 }
 
 export function formatEngagement(n: number): string {

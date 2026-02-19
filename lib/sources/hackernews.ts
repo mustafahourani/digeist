@@ -3,10 +3,10 @@ import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
 import type { HNStory } from "@/lib/types";
 import { extractDomain } from "@/lib/utils";
+import { aiRelevanceScore, discussionHeat, MS_PER_DAY } from "@/lib/scoring";
 
 const HN_API = "https://hacker-news.firebaseio.com/v0";
 const HN_ALGOLIA = "https://hn.algolia.com/api/v1";
-const MS_PER_DAY = 86_400_000;
 const COMMENT_CACHE_PATH = path.join(process.cwd(), "data", "hn-comment-cache.json");
 
 // ─── Comment Cache ───────────────────────────────────────────────
@@ -111,44 +111,7 @@ async function searchAlgolia(query: string, minPoints: number, afterTimestamp: n
   }
 }
 
-// ─── Layer 3: Tiered AI Keywords ────────────────────────────────────
-
-// Tier 1: Definitive AI indicators (full weight)
-const AI_KEYWORDS_T1 =
-  /\b(llm|large.language.model|openai|anthropic|claude|deepseek|deepmind|chatgpt|gpt-[3-5o]|o[13]-|sonnet|opus|haiku|gemini.\d|grok|rlhf|agi|language.model|foundation.model|diffusion.model|transformer.model|neural.network|deep.learning|machine.learning|fine.tun|generative.ai|multimodal|hugging.face|mistral|meta.ai|llama.\d|qwen|phi-\d|stable.diffusion)/i;
-
-// Tier 2: Probably AI but could be something else (0.6x)
-const AI_KEYWORDS_T2 =
-  /\b(ai|agent|inference|embedding|vector|rag|gpu|nvidia|cuda|tpu|benchmark|reasoning|alignment|safety|context.window|token|prompt|mcp|model.context.protocol|cursor|windsurf|devin|replit|v0|bolt|coding.agent|vibe.cod|agentic|perplexity|groq|copilot|transformer|reinforcement.learning)/i;
-
-// Tier 3: Weak signals, only count if T1/T2 also present (0.3x)
-const AI_KEYWORDS_T3 =
-  /\b(model|training|dataset|parameters|weights|latency|throughput|api|scaling|open.source|python|tensor|compute|cloud|quantiz|optimization|distill)/i;
-
-function aiRelevanceScore(title: string): number {
-  const t1 = (title.match(new RegExp(AI_KEYWORDS_T1, "gi")) || []).length;
-  const t2 = (title.match(new RegExp(AI_KEYWORDS_T2, "gi")) || []).length;
-  const t3 = (title.match(new RegExp(AI_KEYWORDS_T3, "gi")) || []).length;
-
-  // T3 only counts if there's at least one T1 or T2 match
-  const t3Effective = t1 + t2 > 0 ? t3 : 0;
-
-  const raw = t1 * 1.0 + t2 * 0.6 + t3Effective * 0.3;
-  // Normalize to 0-1 with diminishing returns
-  return raw === 0 ? 0 : Math.min(1, 0.5 + raw * 0.15);
-}
-
-// ─── Discussion Heat ────────────────────────────────────────────────
-
-function discussionHeat(score: number, comments: number): number {
-  if (score === 0) return 1;
-  const ratio = comments / score;
-  const clamped = Math.min(ratio, 2.0);
-  // Returns multiplier between 1.0 and 1.5
-  return 1 + clamped * 0.25;
-}
-
-// ─── Layer 4: Domain Intelligence ───────────────────────────────────
+// ─── Layer 3: Domain Intelligence ───────────────────────────────────
 
 const AI_DOMAINS_TIER1 = new Set([
   "openai.com", "anthropic.com", "deepmind.google", "ai.meta.com",

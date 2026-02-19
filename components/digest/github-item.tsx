@@ -1,15 +1,6 @@
-import { Star, GitFork, TrendingUp, Clock } from "lucide-react";
+import { Star, GitFork, Clock } from "lucide-react";
 import { formatEngagement } from "@/lib/utils";
 import type { GitHubRepo } from "@/lib/types";
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
 
 function repoAge(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime();

@@ -87,7 +87,6 @@ export interface WeeklyTheme {
   sentiment_avg: number;
   days_appeared: number;
   total_engagement: number;
-  representative_tweets: string[];
 }
 
 export interface WeeklyDigest {
