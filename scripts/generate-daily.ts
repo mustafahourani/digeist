@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { existsSync } from "fs";
 import path from "path";
 import { runDailyPipeline } from "../lib/pipeline";

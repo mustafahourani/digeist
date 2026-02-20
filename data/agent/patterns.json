@@ -1,0 +1,62 @@
+{
+  "active_patterns": [
+    {
+      "id": "openclaw-ecosystem",
+      "name": "OpenClaw Ecosystem Expansion",
+      "status": "accelerating",
+      "first_seen": "2026-02-18",
+      "last_seen": "2026-02-19",
+      "days_observed": 2,
+      "evidence": [
+        "2026-02-18: openclaw-deck (99★→160★), ClawWork (2697★→3512★), claw-empire (43★), PearlOS (13★), zeroclaw (13474★→14767★)",
+        "2026-02-19: OpenAI acquisition confirmed (1902 upvotes Reddit), 720-comment thread on 'Anyone actually using OpenClaw?'"
+      ],
+      "actionable_note": "Track 2 more days. If repo creation rate holds, write OpenClaw ecosystem map explainer.",
+      "content_angle": "The OpenClaw ecosystem is fragmenting into UI layers, orchestrators, and runtimes. Map the landscape before it consolidates."
+    },
+    {
+      "id": "agent-security-tooling",
+      "name": "Agent Security Tooling Wave",
+      "status": "new",
+      "first_seen": "2026-02-19",
+      "last_seen": "2026-02-19",
+      "days_observed": 1,
+      "evidence": [
+        "2026-02-19: agent-vault (secret management), radius (shell command interception), eBPF agent tracer, sandstorm (sandboxed agents) all active"
+      ],
+      "actionable_note": "Watch for 2 more security tools this week. If confirmed, write 'Agent Security Stack' deep analysis.",
+      "content_angle": "We're building the containment infrastructure before agents have actually broken anything. The anxiety is ahead of the threat."
+    },
+    {
+      "id": "model-release-velocity",
+      "name": "Model Release Velocity Acceleration",
+      "status": "new",
+      "first_seen": "2026-02-18",
+      "last_seen": "2026-02-19",
+      "days_observed": 2,
+      "evidence": [
+        "2026-02-17: Claude Sonnet 4.6, Grok 4.2",
+        "2026-02-16: Qwen3.5",
+        "2026-02-19: Gemini 3.1 Pro, Step 3.5 Flash",
+        "5 major model releases in 4 days across 5 different companies"
+      ],
+      "actionable_note": "Supports a 'model triage' content format. Consider tweet scorecard or short explainer ranking which models matter for which use cases.",
+      "content_angle": "Coding benchmark crown changes owners monthly. The real differentiation is moving to agent capabilities."
+    },
+    {
+      "id": "ai-productivity-paradox",
+      "name": "AI Productivity Paradox Discourse",
+      "status": "steady",
+      "first_seen": "2026-02-18",
+      "last_seen": "2026-02-19",
+      "days_observed": 2,
+      "evidence": [
+        "2026-02-18: Fortune/Solow paradox piece (780pts, 732 comments HN)",
+        "2026-02-19: CEPR European productivity study (154pts, 121 comments), 'AI made coding more enjoyable' (43pts, 43 comments)"
+      ],
+      "actionable_note": "Evergreen article opportunity. No rush. Best when you have a strong personal thesis to argue.",
+      "content_angle": "Everyone's debating whether AI boosts productivity. The real question is whether we're measuring the right kind of productivity."
+    }
+  ],
+  "expired_patterns": []
+}

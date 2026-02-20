@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.digeist.agent</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/bin/npx</string>
+    <string>tsx</string>
+    <string>agent/run.ts</string>
+  </array>
+
+  <key>WatchPaths</key>
+  <array>
+    <string>/Users/mustafa/Desktop/Vibecoding/digeist/data/digests</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/mustafa/Desktop/Vibecoding/digeist</string>
+
+  <key>StandardOutPath</key>
+  <string>/Users/mustafa/Desktop/Vibecoding/digeist/data/agent/agent-stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/mustafa/Desktop/Vibecoding/digeist/data/agent/agent-stderr.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+</dict>
+</plist>
