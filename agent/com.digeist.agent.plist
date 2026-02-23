@@ -7,9 +7,8 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/usr/local/bin/npx</string>
-    <string>tsx</string>
-    <string>agent/run.ts</string>
+    <string>/bin/bash</string>
+    <string>/Users/mustafa/Projects/Vibecoding/digeist/agent/run-agent.sh</string>
   </array>
 
   <key>WatchPaths</key>
