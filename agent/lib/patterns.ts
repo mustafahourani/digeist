@@ -53,26 +53,37 @@ export async function savePatterns(state: PatternState): Promise<void> {
 }
 
 export function formatPatternsForPrompt(state: PatternState): string {
-  if (state.active_patterns.length === 0) {
+  if (!state.active_patterns || state.active_patterns.length === 0) {
     return `## Active Patterns\n\nNo active patterns tracked yet. Patterns emerge after 2+ consecutive days of a topic appearing in digests.`;
   }
 
   let prompt = `## Active Patterns\n\n`;
   for (const p of state.active_patterns) {
-    prompt += `### ${p.topic}\n`;
-    prompt += `- **First seen:** ${p.first_seen} | **Last seen:** ${p.last_seen} | **Days:** ${p.days_appeared}\n`;
-    prompt += `- **Sources:** ${p.sources.join(", ")}\n`;
-    prompt += `- **Trajectory:** ${p.trajectory}\n`;
-    prompt += `- **Observation:** ${p.observation}\n`;
-    prompt += `- **Actionable:** ${p.actionable ? "Yes" : "No"}`;
-    if (p.actionable) prompt += ` — ${p.suggested_action}`;
-    prompt += `\n\n`;
+    // Handle both strict schema and agent-written schema flexibly
+    const raw = p as Record<string, unknown>;
+    const topic = p.topic || (raw.name as string) || "Unknown";
+    const days = p.days_appeared || (raw.days_observed as number) || 0;
+    const sources = Array.isArray(p.sources) ? p.sources.join(", ") : "multiple";
+    const trajectory = p.trajectory || (raw.status as string) || "unknown";
+    const observation = p.observation || (raw.actionable_note as string) || "";
+    const action = p.suggested_action || (raw.content_angle as string) || "";
+
+    prompt += `### ${topic}\n`;
+    prompt += `- **First seen:** ${p.first_seen} | **Last seen:** ${p.last_seen} | **Days:** ${days}\n`;
+    prompt += `- **Sources:** ${sources}\n`;
+    prompt += `- **Trajectory:** ${trajectory}\n`;
+    if (observation) prompt += `- **Observation:** ${observation}\n`;
+    if (action) prompt += `- **Action:** ${action}\n`;
+    prompt += `\n`;
   }
 
-  if (state.expired_patterns.length > 0) {
+  if (state.expired_patterns && state.expired_patterns.length > 0) {
     prompt += `### Recently Expired\n`;
     for (const p of state.expired_patterns.slice(-3)) {
-      prompt += `- ${p.topic} (${p.first_seen} to ${p.last_seen}, ${p.days_appeared} days) — ${p.expired_reason}\n`;
+      const raw = p as Record<string, unknown>;
+      const topic = p.topic || (raw.name as string) || "Unknown";
+      const days = p.days_appeared || (raw.days_observed as number) || 0;
+      prompt += `- ${topic} (${p.first_seen} to ${p.last_seen}, ${days} days) — ${p.expired_reason || "stale"}\n`;
     }
   }
 

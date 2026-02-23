@@ -63,11 +63,11 @@ export async function loadWritingVoice(): Promise<VoiceContent> {
       "[Writing Instructions.md not found at ~/Desktop/Writing Voice/]";
   }
 
-  // Load all PDFs
+  // Load all PDFs — run sequentially to avoid rate limits
   const pdfFiles = [
     "First Make Me Care.pdf",
-    "Rajczi Primer Methods.pdf",
     "X Algorithm tips.pdf",
+    // Rajczi Primer is 4.3MB — skip to save tokens/time, rules are in Writing Instructions
   ];
 
   const pdfSummaries: { filename: string; content: string }[] = [];
@@ -81,7 +81,7 @@ export async function loadWritingVoice(): Promise<VoiceContent> {
     } catch {
       pdfSummaries.push({
         filename: pdfFile,
-        content: `[${pdfFile} not found]`,
+        content: `[${pdfFile} not found or failed to extract]`,
       });
     }
   }
