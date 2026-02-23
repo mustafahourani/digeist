@@ -3,9 +3,9 @@ export function buildFeedbackPrompt(date: string): string {
 
 ## Your Task
 
-1. Read the current briefing file at data/agent/briefings/${date}.md
-2. Read any existing feedback for today at data/agent/feedback/${date}.json
-3. Read current preferences at data/agent/preferences.json
+1. Read the current briefing file at agent/Briefings/${date}.md
+2. Read any existing feedback for today at agent/Feedback/${date}.json
+3. Read current preferences at agent/Preferences.json
 
 Then enter an interactive feedback analysis mode. Look for:
 
@@ -32,8 +32,8 @@ After processing all feedback:
 
 ### Output
 Write updated files:
-- data/agent/feedback/${date}.json — the feedback log for today
-- data/agent/preferences.json — the updated preferences
+- agent/Feedback/${date}.json — the feedback log for today
+- agent/Preferences.json — the updated preferences
 
 Report back with a summary of:
 - What feedback was processed

@@ -5,7 +5,7 @@ export function buildDailyBriefingPrompt(date: string): string {
 
 Read today's digest using the read_digest tool for date "${date}". Also read the most recent digests (use list_digests then read the last 3-5 days) for pattern comparison. Load the current preferences and patterns state.
 
-Then produce a complete daily briefing with ALL 7 sections below, written to the file data/agent/briefings/${date}.md using the write_file tool.
+Then produce a complete daily briefing with ALL 7 sections below, written to the file agent/Briefings/${date}.md using the write_file tool.
 
 ## Required Sections (all must appear, in this order)
 
@@ -69,11 +69,11 @@ C. Pipeline Observations (structural suggestions) — only with strong multi-day
 
 1. Read today's digest
 2. Read recent digests for comparison (3-5 days)
-3. Read current preferences (data/agent/preferences.json)
-4. Read current patterns (data/agent/patterns.json)
+3. Read current preferences (agent/Preferences.json)
+4. Read current patterns (agent/Patterns.json)
 5. Analyze all data
-6. Write the complete briefing to data/agent/briefings/${date}.md
-7. Update patterns.json with any new observations (write to data/agent/patterns.json)
+6. Write the complete briefing to agent/Briefings/${date}.md
+7. Update patterns.json with any new observations (write to agent/Patterns.json)
 
 Write the briefing as a single markdown file. Be direct, opinionated, and actionable.`;
 }

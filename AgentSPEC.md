@@ -36,7 +36,7 @@
   → Reads preference/feedback history
   → Loads Writing Voice files
   → Generates daily briefing
-  → Writes output to data/agent/briefings/YYYY-MM-DD.md
+  → Writes output to agent/Briefings/YYYY-MM-DD.md
   → Opens in VS Code (or user reviews when ready)
 ```
 
@@ -70,7 +70,7 @@ Use macOS `launchd` to trigger the agent 15 minutes after digest generation:
     <integer>15</integer>
   </dict>
   <key>WorkingDirectory</key>
-  <string>/Users/mustafa/Desktop/Vibecoding/digeist</string>
+  <string>/Users/mustafa/Projects/Vibecoding/digeist</string>
 </dict>
 </plist>
 ```
@@ -96,22 +96,22 @@ npx tsx agent/run.ts --feedback         # Interactive feedback session
 | Today's digest | `data/digests/YYYY-MM-DD.json` | Primary input for daily briefing |
 | Historical digests | `data/digests/*.json` | Pattern detection across days |
 | Weekly digest | `data/weekly/YYYY-WNN.json` | Input for weekly strategy memo |
-| Feedback history | `data/agent/feedback/*.json` | Learn from past corrections |
-| Preferences | `data/agent/preferences.json` | Accumulated scoring rubric |
-| Pattern state | `data/agent/patterns.json` | Running multi-day pattern tracker |
-| Writing Voice | `~/Desktop/Writing Voice/*` | Full folder loaded every run |
+| Feedback history | `agent/Feedback/*.json` | Learn from past corrections |
+| Preferences | `agent/Preferences.json` | Accumulated scoring rubric |
+| Pattern state | `agent/Patterns.json` | Running multi-day pattern tracker |
+| Writing Voice | `~/Projects/Writing Voice/*` | Full folder loaded every run |
 | Config | `config/keywords.json` | Current tracking configuration |
 
 ### What the Agent Writes
 
 | Output | Path | Purpose |
 |---|---|---|
-| Daily briefing | `data/agent/briefings/YYYY-MM-DD.md` | The main output |
-| Article drafts | `data/agent/articles/YYYY-MM-DD-{slug}.md` | Full article + outline |
-| Feedback logs | `data/agent/feedback/YYYY-MM-DD.json` | Structured feedback records |
-| Preferences | `data/agent/preferences.json` | Updated scoring rubric |
-| Pattern state | `data/agent/patterns.json` | Updated pattern observations |
-| Weekly memos | `data/agent/weekly/YYYY-WNN.md` | Weekly strategy output |
+| Daily briefing | `agent/Briefings/YYYY-MM-DD.md` | The main output |
+| Article drafts | `agent/Articles/YYYY-MM-DD-{slug}.md` | Full article + outline |
+| Feedback logs | `agent/Feedback/YYYY-MM-DD.json` | Structured feedback records |
+| Preferences | `agent/Preferences.json` | Updated scoring rubric |
+| Pattern state | `agent/Patterns.json` | Updated pattern observations |
+| Weekly memos | `agent/Weekly/YYYY-WNN.md` | Weekly strategy output |
 
 ### What the Agent Does NOT Access
 
@@ -141,13 +141,13 @@ List all available digest dates. Returns an array of date strings.
 ### `read_file`
 Read any file from the agent's data directory or the Writing Voice folder.
 ```typescript
-{ name: "read_file", input: { path: "data/agent/preferences.json" } }
+{ name: "read_file", input: { path: "agent/Preferences.json" } }
 ```
 
 ### `write_file`
 Write a file to the agent's output directories.
 ```typescript
-{ name: "write_file", input: { path: "data/agent/briefings/2026-02-20.md", content: "..." } }
+{ name: "write_file", input: { path: "agent/Briefings/2026-02-20.md", content: "..." } }
 ```
 
 ### `web_search`
@@ -159,7 +159,7 @@ Search the web for additional context. Used to enrich research pointers, validat
 ### `read_pdf`
 Read a PDF file and extract text content. Used for loading Writing Voice reference PDFs.
 ```typescript
-{ name: "read_pdf", input: { path: "~/Desktop/Writing Voice/First Make Me Care.pdf" } }
+{ name: "read_pdf", input: { path: "~/Projects/Writing Voice/First Make Me Care.pdf" } }
 ```
 
 ---
@@ -397,7 +397,7 @@ in both HN and GitHub today. Too early to call a trend, but watching.
 **Rules:**
 - Only include patterns with an actionable observation attached.
 - "X has appeared for N days" alone is not enough. WHY does it matter? What should the user do?
-- Track patterns in `data/agent/patterns.json` across runs.
+- Track patterns in `agent/Patterns.json` across runs.
 - Remove patterns that have gone stale (no appearances in 5+ days).
 - Maximum 3-5 active patterns at a time.
 
@@ -411,7 +411,7 @@ in both HN and GitHub today. Too early to call a trend, but watching.
 
 When the user picks an article topic (by telling Claude Code "write Option B" or similar), the agent produces:
 
-**Output file:** `data/agent/articles/YYYY-MM-DD-{slug}.md`
+**Output file:** `agent/Articles/YYYY-MM-DD-{slug}.md`
 
 The file contains TWO versions:
 
@@ -468,7 +468,7 @@ The agent loads the entire Writing Voice folder on every run:
 | `Rajczi Primer Methods.pdf` | 4.1 MB | Reference on argumentative structure and reasoning |
 | `X Algorithm tips.pdf` | 132 KB | Reference on X/Twitter algorithm mechanics |
 
-**Location:** `~/Desktop/Writing Voice/`
+**Location:** `~/Projects/Writing Voice/`
 
 ### Voice Rules (Hard Constraints)
 
@@ -508,7 +508,7 @@ All feedback happens inside VS Code. There are two ways to give feedback, and bo
 
 #### Way 1: Chat with Claude Code (conversational)
 
-1. Agent auto-generates daily briefing and writes it to `data/agent/briefings/YYYY-MM-DD.md`.
+1. Agent auto-generates daily briefing and writes it to `agent/Briefings/YYYY-MM-DD.md`.
 2. User opens the briefing file in VS Code.
 3. User talks to Claude Code about it naturally:
    - "Revise tweet 2, the angle is wrong. It should focus on what this means for indie devs."
@@ -516,7 +516,7 @@ All feedback happens inside VS Code. There are two ways to give feedback, and bo
    - "Write the article for Option B."
    - "This executive summary buries the lead. The MCP thing is the real story."
 4. Claude Code reads the briefing, revises the relevant section, and updates the file.
-5. Claude Code also records the feedback pattern to `data/agent/feedback/` and updates `preferences.json`.
+5. Claude Code also records the feedback pattern to `agent/Feedback/` and updates `preferences.json`.
 
 #### Way 2: Direct edits in the editor
 
@@ -559,7 +559,7 @@ Digeist improvement recommendations appear in the **Digeist Pipeline Recommendat
 
 ### Feedback Storage
 
-**Per-day feedback file:** `data/agent/feedback/YYYY-MM-DD.json`
+**Per-day feedback file:** `agent/Feedback/YYYY-MM-DD.json`
 
 ```json
 {
@@ -586,7 +586,7 @@ Digeist improvement recommendations appear in the **Digeist Pipeline Recommendat
 
 ### Preference Accumulation
 
-**Preferences file:** `data/agent/preferences.json`
+**Preferences file:** `agent/Preferences.json`
 
 This is the agent's evolving scoring rubric. It's append-only — nothing is ever deleted. The agent updates this file after each feedback session.
 
@@ -645,7 +645,7 @@ The `pipeline_learnings` section accumulates evidence about Digeist's data quali
 
 ### State File
 
-**Path:** `data/agent/patterns.json`
+**Path:** `agent/Patterns.json`
 
 ```json
 {
@@ -694,12 +694,12 @@ Runs on Sundays automatically (same launchd cron). Can also be triggered by tell
 
 The weekly memo synthesizes THREE sources:
 1. The Digeist weekly digest JSON (`data/weekly/YYYY-WNN.json`)
-2. The agent's own 7 daily briefings from that week (`data/agent/briefings/*.md`)
-3. All user feedback from that week (`data/agent/feedback/*.json`)
+2. The agent's own 7 daily briefings from that week (`agent/Briefings/*.md`)
+3. All user feedback from that week (`agent/Feedback/*.json`)
 
 ### Output
 
-**Path:** `data/agent/weekly/YYYY-WNN.md`
+**Path:** `agent/Weekly/YYYY-WNN.md`
 
 ### Structure
 
@@ -745,6 +745,13 @@ digeist/
 ├── agent/
 │   ├── run.ts                        # Entry point — CLI runner
 │   ├── agent.ts                      # Core agent setup (Claude SDK)
+│   ├── Briefings/                    # Daily briefing markdown files
+│   ├── Articles/                     # Article draft markdown files
+│   ├── Feedback/                     # Per-day feedback JSON logs
+│   ├── Weekly/                       # Weekly strategy memo files
+│   ├── Logs/                         # Agent and pipeline logs
+│   ├── Patterns.json                 # Active pattern tracker
+│   ├── Preferences.json              # Accumulated scoring rubric
 │   ├── tools/
 │   │   ├── read-digest.ts            # Tool: read digest JSON by date
 │   │   ├── list-digests.ts           # Tool: list available digest dates
@@ -764,14 +771,7 @@ digeist/
 │       └── voice-loader.ts           # Load Writing Voice folder
 ├── data/
 │   ├── digests/                      # [existing] Daily digest JSONs
-│   ├── weekly/                       # [existing] Weekly digest JSONs
-│   └── agent/
-│       ├── briefings/                # Daily briefing markdown files
-│       ├── articles/                 # Article draft markdown files
-│       ├── feedback/                 # Per-day feedback JSON logs
-│       ├── weekly/                   # Weekly strategy memo files
-│       ├── preferences.json          # Accumulated scoring rubric
-│       └── patterns.json             # Active pattern tracker
+│   └── weekly/                       # [existing] Weekly digest JSONs
 ├── config/
 │   └── keywords.json                 # [existing] Source configuration
 └── ...
@@ -816,7 +816,7 @@ You write all content in Mustafa's voice. The voice rules below are non-negotiab
 
 ### Daily Flow (No Terminal Commands Needed)
 
-1. **Briefing auto-generates** at 5:15 PM UTC via launchd. A new file appears: `data/agent/briefings/2026-02-20.md`
+1. **Briefing auto-generates** at 5:15 PM UTC via launchd. A new file appears: `agent/Briefings/2026-02-20.md`
 2. **You open it in VS Code** whenever you're ready (that day, next morning, whenever).
 3. **You review and interact** using any combination of:
    - Reading the file directly in the editor
@@ -829,7 +829,7 @@ You write all content in Mustafa's voice. The voice rules below are non-negotiab
 | What you say | What happens |
 |---|---|
 | "Revise tweet 2, make it shorter and more opinionated" | Agent rewrites tweet 2 in the briefing file and notes the preference |
-| "Write the article for Option B" | Agent generates full article + outline at `data/agent/articles/` |
+| "Write the article for Option B" | Agent generates full article + outline at `agent/Articles/` |
 | "The contrarian angle is weak, find a better one" | Agent re-analyzes the digest and writes a new contrarian section |
 | "Run the weekly memo" | Agent generates this week's strategy memo |
 | "What are my current preferences?" | Agent reads and summarizes `preferences.json` |

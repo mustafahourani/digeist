@@ -5,19 +5,19 @@ import path from "path";
 const PROJECT_ROOT = process.cwd();
 
 // Allowed output directories
-const ALLOWED_PREFIXES = [path.join(PROJECT_ROOT, "data", "agent")];
+const ALLOWED_PREFIXES = [path.join(PROJECT_ROOT, "agent")];
 
 export const writeFileTool: Anthropic.Tool = {
   name: "write_file",
   description:
-    "Write a file to the agent's output directories (data/agent/). Use relative paths from project root.",
+    "Write a file to the agent's output directories (agent/). Use relative paths from project root.",
   input_schema: {
     type: "object" as const,
     properties: {
       path: {
         type: "string",
         description:
-          "Path to write the file. Relative paths resolve from project root. Must be within data/agent/.",
+          "Path to write the file. Relative paths resolve from project root. Must be within agent/.",
       },
       content: {
         type: "string",
@@ -42,7 +42,7 @@ export async function executeWriteFile(input: {
   );
   if (!isAllowed) {
     return JSON.stringify({
-      error: `Access denied. Can only write to: data/agent/. Requested: ${input.path}`,
+      error: `Access denied. Can only write to: agent/. Requested: ${input.path}`,
     });
   }
 

@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import os from "os";
 
-const WRITING_VOICE_DIR = path.join(os.homedir(), "Desktop", "Writing Voice");
+const WRITING_VOICE_DIR = path.join(os.homedir(), "Projects", "Writing Voice");
 
 export const readPdfTool: Anthropic.Tool = {
   name: "read_pdf",
@@ -40,7 +40,7 @@ export async function executeReadPdf(input: {
   // Security check: only allow PDFs from Writing Voice directory
   if (!resolved.startsWith(WRITING_VOICE_DIR)) {
     return JSON.stringify({
-      error: `Access denied. Can only read PDFs from ~/Desktop/Writing Voice/. Requested: ${input.path}`,
+      error: `Access denied. Can only read PDFs from ~/Projects/Writing Voice/. Requested: ${input.path}`,
     });
   }
 

@@ -147,15 +147,15 @@ async function main() {
     if (result.success) {
       switch (mode) {
         case "daily":
-          console.log(`\nBriefing written to: data/agent/briefings/${date}.md`);
+          console.log(`\nBriefing written to: agent/Briefings/${date}.md`);
           break;
         case "weekly": {
           const weekLabel = getWeekLabel(new Date(date));
-          console.log(`\nWeekly memo written to: data/agent/weekly/${weekLabel}.md`);
+          console.log(`\nWeekly memo written to: agent/Weekly/${weekLabel}.md`);
           break;
         }
         case "article":
-          console.log(`\nArticle written to: data/agent/articles/${date}-*.md`);
+          console.log(`\nArticle written to: agent/Articles/${date}-*.md`);
           break;
         case "feedback":
           console.log(`\nFeedback processed and preferences updated.`);

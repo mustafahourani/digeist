@@ -5,7 +5,7 @@ export function buildArticlePrompt(topic: string, date: string): string {
 
 Research the topic using today's digest data (${date}) and web search if needed. Then produce a complete article file with TWO versions.
 
-Write the output to data/agent/articles/${date}-${slugify(topic)}.md using the write_file tool.
+Write the output to agent/Articles/${date}-${slugify(topic)}.md using the write_file tool.
 
 ## Version A: Full Article Draft
 

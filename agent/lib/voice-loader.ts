@@ -3,7 +3,7 @@ import path from "path";
 import os from "os";
 import Anthropic from "@anthropic-ai/sdk";
 
-const WRITING_VOICE_DIR = path.join(os.homedir(), "Desktop", "Writing Voice");
+const WRITING_VOICE_DIR = path.join(os.homedir(), "Projects", "Writing Voice");
 
 interface VoiceContent {
   writingInstructions: string;
@@ -60,7 +60,7 @@ export async function loadWritingVoice(): Promise<VoiceContent> {
     writingInstructions = await fs.readFile(instructionsPath, "utf-8");
   } catch {
     writingInstructions =
-      "[Writing Instructions.md not found at ~/Desktop/Writing Voice/]";
+      "[Writing Instructions.md not found at ~/Projects/Writing Voice/]";
   }
 
   // Load all PDFs — run sequentially to avoid rate limits

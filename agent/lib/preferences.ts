@@ -3,9 +3,8 @@ import path from "path";
 
 const PREFS_PATH = path.join(
   process.cwd(),
-  "data",
   "agent",
-  "preferences.json"
+  "Preferences.json"
 );
 
 export interface Preferences {

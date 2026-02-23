@@ -3,9 +3,8 @@ import path from "path";
 
 const PATTERNS_PATH = path.join(
   process.cwd(),
-  "data",
   "agent",
-  "patterns.json"
+  "Patterns.json"
 );
 
 export interface ActivePattern {

@@ -5,14 +5,14 @@ export function buildWeeklyPrompt(weekLabel: string, startDate: string, endDate:
 
 Synthesize THREE data sources:
 1. The Digeist weekly digest JSON (if available at data/weekly/${weekLabel}.json)
-2. The agent's daily briefings from this week (data/agent/briefings/*.md for dates ${startDate} through ${endDate})
-3. All user feedback from this week (data/agent/feedback/*.json for this week's dates)
+2. The agent's daily briefings from this week (agent/Briefings/*.md for dates ${startDate} through ${endDate})
+3. All user feedback from this week (agent/Feedback/*.json for this week's dates)
 
 Read all available files using the read_file and list_digests tools, then write the weekly memo.
 
 ## Output
 
-Write to: data/agent/weekly/${weekLabel}.md
+Write to: agent/Weekly/${weekLabel}.md
 
 ## Structure
 

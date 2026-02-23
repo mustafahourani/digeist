@@ -4,11 +4,12 @@ import path from "path";
 import os from "os";
 
 const PROJECT_ROOT = process.cwd();
-const WRITING_VOICE_DIR = path.join(os.homedir(), "Desktop", "Writing Voice");
+const WRITING_VOICE_DIR = path.join(os.homedir(), "Projects", "Writing Voice");
 
 // Allowed directories the agent can read from
 const ALLOWED_PREFIXES = [
   path.join(PROJECT_ROOT, "data"),
+  path.join(PROJECT_ROOT, "agent"),
   path.join(PROJECT_ROOT, "config"),
   WRITING_VOICE_DIR,
 ];
@@ -16,7 +17,7 @@ const ALLOWED_PREFIXES = [
 export const readFileTool: Anthropic.Tool = {
   name: "read_file",
   description:
-    "Read any file from the agent's data directory, config directory, or the Writing Voice folder. Use relative paths from project root (e.g. 'data/agent/preferences.json') or absolute paths within allowed directories.",
+    "Read any file from the agent's output directory, data directory, config directory, or the Writing Voice folder. Use relative paths from project root (e.g. 'agent/Preferences.json') or absolute paths within allowed directories.",
   input_schema: {
     type: "object" as const,
     properties: {
@@ -54,7 +55,7 @@ export async function executeReadFile(input: {
   );
   if (!isAllowed) {
     return JSON.stringify({
-      error: `Access denied. Can only read from: data/, config/, or ~/Desktop/Writing Voice/. Requested: ${input.path}`,
+      error: `Access denied. Can only read from: agent/, data/, config/, or ~/Projects/Writing Voice/. Requested: ${input.path}`,
     });
   }
 

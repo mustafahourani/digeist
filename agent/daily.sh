@@ -4,7 +4,7 @@
 
 set -e
 
-cd /Users/mustafa/Desktop/Vibecoding/digeist
+cd /Users/mustafa/Projects/Vibecoding/digeist
 
 export PATH="/usr/local/bin:$PATH"
 

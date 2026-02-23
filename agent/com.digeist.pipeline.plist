@@ -8,7 +8,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
-    <string>/Users/mustafa/Desktop/Vibecoding/digeist/agent/daily.sh</string>
+    <string>/Users/mustafa/Projects/Vibecoding/digeist/agent/daily.sh</string>
   </array>
 
   <key>StartCalendarInterval</key>
@@ -20,13 +20,13 @@
   </dict>
 
   <key>WorkingDirectory</key>
-  <string>/Users/mustafa/Desktop/Vibecoding/digeist</string>
+  <string>/Users/mustafa/Projects/Vibecoding/digeist</string>
 
   <key>StandardOutPath</key>
-  <string>/Users/mustafa/Desktop/Vibecoding/digeist/data/agent/pipeline-stdout.log</string>
+  <string>/Users/mustafa/Projects/Vibecoding/digeist/agent/Logs/pipeline-stdout.log</string>
 
   <key>StandardErrorPath</key>
-  <string>/Users/mustafa/Desktop/Vibecoding/digeist/data/agent/pipeline-stderr.log</string>
+  <string>/Users/mustafa/Projects/Vibecoding/digeist/agent/Logs/pipeline-stderr.log</string>
 
   <key>EnvironmentVariables</key>
   <dict>
