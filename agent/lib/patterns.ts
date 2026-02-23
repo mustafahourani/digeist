@@ -59,7 +59,7 @@ export function formatPatternsForPrompt(state: PatternState): string {
   let prompt = `## Active Patterns\n\n`;
   for (const p of state.active_patterns) {
     // Handle both strict schema and agent-written schema flexibly
-    const raw = p as Record<string, unknown>;
+    const raw = p as unknown as Record<string, unknown>;
     const topic = p.topic || (raw.name as string) || "Unknown";
     const days = p.days_appeared || (raw.days_observed as number) || 0;
     const sources = Array.isArray(p.sources) ? p.sources.join(", ") : "multiple";
@@ -79,7 +79,7 @@ export function formatPatternsForPrompt(state: PatternState): string {
   if (state.expired_patterns && state.expired_patterns.length > 0) {
     prompt += `### Recently Expired\n`;
     for (const p of state.expired_patterns.slice(-3)) {
-      const raw = p as Record<string, unknown>;
+      const raw = p as unknown as Record<string, unknown>;
       const topic = p.topic || (raw.name as string) || "Unknown";
       const days = p.days_appeared || (raw.days_observed as number) || 0;
       prompt += `- ${topic} (${p.first_seen} to ${p.last_seen}, ${days} days) — ${p.expired_reason || "stale"}\n`;
