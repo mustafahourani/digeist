@@ -1,0 +1,23 @@
+{
+  "date": "2026-02-22",
+  "generated_at": "2026-02-22T17:00:00.000Z",
+  "sources_status": {
+    "github": "error",
+    "hackernews": "error",
+    "reddit": "error"
+  },
+  "sections": {
+    "github": {
+      "new_repos": [],
+      "trending_repos": []
+    },
+    "hackernews": {
+      "hot_stories": [],
+      "rising_stories": []
+    },
+    "reddit": {
+      "hot_posts": [],
+      "rising_posts": []
+    }
+  }
+}
