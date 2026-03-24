@@ -70,6 +70,75 @@ Claude Sonnet is used for:
 - **Title cleanup** — rewrites verbose Reddit titles into clean, scannable text
 - **Description enhancement** — rewrites GitHub repo descriptions for clarity
 
+## Scoring
+
+Every item goes through a multi-signal composite scoring system before Claude does a final semantic filter. The signals vary by source but follow the same philosophy: combine numeric signals with AI judgment.
+
+### Shared signals (`lib/scoring.ts`)
+
+**AI relevance score (0-1)** — Three-tier keyword matching against the title (and selftext for Reddit):
+- **Tier 1** (full weight): Definitive AI terms — `llm`, `openai`, `anthropic`, `claude`, `deepseek`, `chatgpt`, `fine-tun`, `generative ai`, etc.
+- **Tier 2** (0.6x): Probably AI — `agent`, `inference`, `embedding`, `vector`, `rag`, `mcp`, `cursor`, `copilot`, `transformer`, etc.
+- **Tier 3** (0.3x): Weak signals — `model`, `training`, `dataset`, `parameters`, `api`, `scaling`, etc. Only counted if a Tier 1 or Tier 2 keyword is also present.
+
+Normalized to 0-1 with diminishing returns: `min(1, 0.5 + raw * 0.15)`
+
+**Discussion heat multiplier (1.0-1.5)** — Comment-to-score ratio. A post with 200 comments and 100 upvotes (ratio 2.0) gets a 1.5x multiplier. High discussion relative to score signals genuine community interest, not just drive-by upvotes.
+
+### GitHub scoring (9 signals)
+
+| Signal | What it measures | Max contribution |
+|--------|-----------------|------------------|
+| Star delta | Stars gained since last run (log2 compressed) | 10 pts |
+| Stars-per-day velocity | Fallback when no delta available | 6 pts |
+| Freshness | Repo age: <1 day = 8pts, <3 days = 5pts, <7 days = 3pts, <14 days = 1pt | 8 pts |
+| Trending page bonus | Appeared on GitHub trending | 4 pts |
+| Query hit count | Matched multiple search queries (breadth of relevance) | 2 pts |
+| Org reputation | indie = 3pts (highest discovery value), known = 1pt, major = 0 (they surface via HN anyway) | 3 pts |
+| Fork score | Fork count (log2 compressed, capped higher than stars because forks = real usage) | 12 pts |
+| Fork-to-star ratio | >30% = 5pts, >15% = 2.5pts — people building on this, not just bookmarking | 5 pts |
+| Claude semantic score | Claude rates 1-10 how interesting the repo is for AI practitioners, scaled to 0-15pts. Highest-cap signal because Claude understands context numbers can't. | 15 pts |
+
+After scoring, repos are split into **new** (<24h old) and **trending** (older but gaining traction), then Claude picks the top 10 for each column from the top 30 candidates.
+
+GitHub also uses **dynamic query generation**: Claude reads yesterday's digest and generates 3-5 additional search queries based on what's actually trending, making the search adaptive rather than static.
+
+### Hacker News scoring (6 signals)
+
+Formula: `(baseScore × 3 + aiRelevance × 12 + velocityBonus × 2) × heat × showHnBonus × domainScore`
+
+| Signal | What it measures | Details |
+|--------|-----------------|---------|
+| Base score | HN points (log2 compressed) | 100pts → 6.6, 400pts → 8.6, 900pts → 9.8 |
+| AI relevance | Keyword match score (dominant signal, weight 12) | 0-1 scale from shared scoring |
+| Velocity | Points per hour since posting | Capped at 2.0 — rewards fast risers |
+| Discussion heat | Comment-to-score ratio multiplier | 1.0-1.5x |
+| Show HN bonus | Multiplier for Show HN posts | 1.3x (builders showing real work) |
+| Domain trust | Source domain tier | Tier 1 (openai.com, anthropic.com, arxiv.org, etc.) = 1.2x, Tier 2 (github.com, pytorch.org, nvidia.com, etc.) = 1.1x |
+
+Stories are split into **hot** (<24h) and **rising** (1-7 days, 30+ points minimum), then Claude picks the top 10 for each column.
+
+Data comes from 5 Firebase feeds (top, best, show, new, ask) plus 3 Algolia keyword searches that catch AI stories from the past week that dropped off the live feeds.
+
+### Reddit scoring (7 signals)
+
+Formula: `(baseScore × 3 + aiRelevance × 12 + velocityBonus × 2) × heat × subTier × domainScore × ratioMult`
+
+Same base formula as HN, plus two Reddit-specific signals:
+
+| Signal | What it measures | Details |
+|--------|-----------------|---------|
+| Subreddit tier | Source quality | Core (AutoGPT, LangChain, LocalLLaMA) = 1.3x, Major (MachineLearning, OpenAI, Anthropic) = 1.1x, General = 1.0x |
+| Upvote ratio | Community agreement | >95% = 1.15x, 85-95% = 1.0x, 70-85% = 0.9x, <70% = 0.8x |
+
+Posts are split into **hot** (<24h) and **rising** (1-7 days, 30+ points minimum), then Claude picks the top 10 for each column.
+
+### Claude semantic filter (all sources)
+
+After numeric scoring, the top 30 candidates from each column are sent to Claude Sonnet with source-specific prompts. Claude picks the final 10, ordered by value. The prompts tell Claude what to keep (major announcements, new tools, Show HN with novel applications, deep technical posts) and what to remove (off-topic, duplicates, clickbait, low-effort content).
+
+If the Claude call fails, the system falls back to the numeric score ordering.
+
 ### Cross-source amplification
 
 If an HN story or Reddit post links to a GitHub repo that's already in the digest, both items get a 1.5x velocity boost. This surfaces stories that are generating buzz across multiple communities.
