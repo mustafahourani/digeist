@@ -91,7 +91,7 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 | Signal | In plain English | How it's calculated | Weight/Range |
 |--------|-----------------|-------------------|-------------|
 | Base score | How popular is this post? | `log2(HN points)` — 100pts = 6.6, 400pts = 8.6, 900pts = 9.8. Compresses so mega-posts don't drown everything | ×3 in formula |
-| AI relevance | How AI-related is this? | 3-tier keyword match. **Tier 1**: definitive (`llm`, `openai`, `claude`, etc.). **Tier 2** (0.6×): probably AI (`agent`, `mcp`, `embedding`). **Tier 3** (0.3×): weak (`model`, `training`) — only counts if Tier 1/2 present. **Dominant signal** | ×12 in formula (0-1 scale) |
+| AI relevance | How AI-related is this? | 3-tier keyword match (see full keyword lists below). Normalized to 0-1 with diminishing returns. **Dominant signal** | ×12 in formula (0-1 scale) |
 | Velocity | How fast is this gaining attention? | `points per hour / 50`, capped at 2.0 — 50pts in 1 hour beats 100pts in 10 hours | ×2 in formula |
 | Ecosystem/backing | Is a notable backer involved? | 1 if title mentions YC, a16z, Product Hunt, Sequoia, Techstars, etc. 0 otherwise | ×2 in formula |
 | Revenue/funding | Is there a money milestone? | 1 if title mentions ARR, MRR, revenue, seed round, Series A/B/C, raised $X, etc. 0 otherwise | ×2 in formula |
@@ -99,6 +99,20 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 | Discussion heat | Are people actually debating this? | Comment-to-score ratio → 1.0-1.5× multiplier. 200 comments on 100 upvotes = 1.5× | 1.0-1.5× multiplier |
 | Show HN bonus | Is someone showing real work they built? | 1.3× for Show HN posts, 1.0× for everything else | 1.0-1.3× multiplier |
 | Domain trust | Is this from a reputable source? | Tier 1 (openai.com, arxiv.org, anthropic.com) = 1.2×. Tier 2 (github.com, pytorch.org) = 1.1×. Other = 1.0× | 1.0-1.2× multiplier |
+
+**AI relevance keyword lists** (used by HN, Reddit, and GitHub's Claude scoring — defined in `lib/scoring.ts`):
+
+- **Tier 1 — definitely AI** (full weight): `llm`, `large language model`, `openai`, `anthropic`, `claude`, `deepseek`, `deepmind`, `chatgpt`, `gpt-3/4/5`, `o1/o3`, `sonnet`, `opus`, `haiku`, `gemini`, `grok`, `rlhf`, `agi`, `language model`, `foundation model`, `diffusion model`, `transformer model`, `neural network`, `deep learning`, `machine learning`, `fine-tuning`, `generative ai`, `multimodal`, `hugging face`, `mistral`, `meta ai`, `llama`, `qwen`, `phi`, `stable diffusion`
+- **Tier 2 — probably AI** (0.6× weight): `ai`, `agent`, `inference`, `embedding`, `vector`, `rag`, `gpu`, `nvidia`, `cuda`, `tpu`, `benchmark`, `reasoning`, `alignment`, `safety`, `context window`, `token`, `prompt`, `mcp`, `model context protocol`, `cursor`, `windsurf`, `devin`, `replit`, `v0`, `bolt`, `coding agent`, `vibe coding`, `agentic`, `perplexity`, `groq`, `copilot`, `transformer`, `reinforcement learning`
+- **Tier 3 — weak signal** (0.3× weight, only counted if a Tier 1 or 2 keyword is also present): `model`, `training`, `dataset`, `parameters`, `weights`, `latency`, `throughput`, `api`, `scaling`, `open source`, `python`, `tensor`, `compute`, `cloud`, `quantization`, `optimization`, `distillation`
+
+Each keyword match is counted and weighted by tier, then normalized to 0-1: `min(1, 0.5 + raw × 0.15)`. A title with one Tier 1 match scores 0.65. Two Tier 1 + one Tier 2 scores 0.89. Diminishing returns prevent keyword-stuffed titles from gaming the score.
+
+**Ecosystem/backing keywords:** `product hunt`, `y combinator`, `YC`, `a16z`, `andreessen horowitz`, `sequoia`, `greylock`, `benchmark`, `lightspeed`, `khosla`, `founders fund`, `techstars`, `backed by`
+
+**Revenue/funding keywords:** `MRR`, `ARR`, `revenue`, `paying customers`, `seed round`, `pre-seed`, `Series A/B/C`, `angel round`, `funding`, `valuation`, `profitable`, `break even`, `raised $` (requires dollar sign), `$X M/B/K` (dollar amounts)
+
+**Verifiable AI infra keywords:** `TEE`, `trusted execution`, `SGX`, `secure enclave`, `confidential computing`, `verifiable compute`, `zero knowledge`, `ZK proof`, `zkML`, `ZKML`, `homomorphic`, `FHE`, `proof of inference`, `attestation`, `on-chain inference` — **must co-occur with a Tier 1 or Tier 2 AI keyword**, otherwise returns 0 (filters out pure crypto/blockchain content)
 
 **Column split:** Stories <24 hours old go into "Hottest Today." Stories 1-7 days old with ≥30 HN points go into "Trending This Week." Each column's top 30 go to Claude for final selection of 10.
 
@@ -108,13 +122,18 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 
 **Scoring formula:** `(baseScore × 3 + aiRelevance × 12 + velocity × 2 + ecosystemBacking × 2 + revenueFunding × 2 + verifiableInfra × 3) × heat × subTier × domainTrust × upvoteRatio`
 
-Same base formula as HN (base score, AI relevance, velocity, discussion heat, ecosystem/backing, revenue/funding, verifiable infra — all calculated identically), plus these Reddit-specific multipliers:
-
-| Signal | In plain English | How it's calculated | Range |
-|--------|-----------------|-------------------|-------|
+| Signal | In plain English | How it's calculated | Weight/Range |
+|--------|-----------------|-------------------|-------------|
+| Base score | How popular is this post? | `log2(Reddit upvotes)` — 100pts = 6.6, 400pts = 8.6. Compresses so mega-posts don't drown everything | ×3 in formula |
+| AI relevance | How AI-related is this? | Same 3-tier keyword match as HN (see keyword lists above). For self-posts, also checks the first 500 characters of the body text. **Dominant signal** | ×12 in formula (0-1 scale) |
+| Velocity | How fast is this gaining upvotes? | `upvotes per hour / 50`, capped at 2.0 | ×2 in formula |
+| Ecosystem/backing | Is a notable backer involved? | 1 if title/body mentions YC, a16z, Product Hunt, Sequoia, Techstars, etc. 0 otherwise | ×2 in formula |
+| Revenue/funding | Is there a money milestone? | 1 if title/body mentions ARR, MRR, revenue, seed round, Series A/B/C, raised $X, etc. 0 otherwise | ×2 in formula |
+| Verifiable AI infra | Is this about provably secure AI? | 1 if title/body mentions TEE, ZK proofs, secure enclaves **and** AI terms. 0 otherwise | ×3 in formula |
+| Discussion heat | Are people actually debating this? | Comment-to-upvote ratio → 1.0-1.5× multiplier | 1.0-1.5× multiplier |
 | Subreddit tier | Is this from a core builder community? | Core (r/AutoGPT, r/LangChain, r/LocalLLaMA) = 1.3×. Major (r/MachineLearning, r/OpenAI, r/Anthropic) = 1.1×. General = 1.0× | 1.0-1.3× multiplier |
+| Domain trust | Is the linked source reputable? | Self-posts = 1.0×. Tier 1 AI domains (openai.com, arxiv.org, etc.) = 1.2×, Tier 2 (github.com, pytorch.org) = 1.1× | 1.0-1.2× multiplier |
 | Upvote ratio | Does the community actually agree this is good? | >95% = 1.15× boost. 85-95% = 1.0×. 70-85% = 0.9×. <70% = 0.8× penalty | 0.8-1.15× multiplier |
-| Domain trust | Is the linked source reputable? | Self-posts = 1.0×. Tier 1 AI domains = 1.2×, Tier 2 = 1.1× (same lists as HN) | 1.0-1.2× multiplier |
 
 **Body text scanning:** For Reddit self-posts, the AI relevance, ecosystem/backing, revenue/funding, and verifiable infra signals check the first 500 characters of the post body in addition to the title. A post where someone describes their YC-backed seed round in the body text (not just the title) still gets caught.
 
