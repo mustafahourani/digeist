@@ -35,3 +35,30 @@ export function discussionHeat(score: number, comments: number): number {
   // Returns multiplier between 1.0 and 1.5
   return 1 + clamped * 0.25;
 }
+
+// --- Tracking criteria scoring functions ---
+// Each returns 0 or 1 (binary match). Used as small additive bonuses.
+
+const ECOSYSTEM_BACKING_RE =
+  /\b(product.hunt|y.combinator|YC|a16z|andreessen.horowitz|sequoia|greylock|benchmark|lightspeed|khosla|founders.fund|techstars|backed.by)\b/i;
+
+export function ecosystemBackingScore(text: string): number {
+  return ECOSYSTEM_BACKING_RE.test(text) ? 1 : 0;
+}
+
+const REVENUE_FUNDING_RE =
+  /\b(MRR|ARR|revenue|paying.customers|seed.round|pre.seed|series.[A-C]|angel.round|funding|valuation|profitable|break.even)\b|raised.\$|\$\d+[MBKmk]/i;
+
+export function revenueFundingScore(text: string): number {
+  return REVENUE_FUNDING_RE.test(text) ? 1 : 0;
+}
+
+const VERIFIABLE_INFRA_RE =
+  /\b(TEE|trusted.execution|SGX|secure.enclave|confidential.computing|verifiable.compute|zero.knowledge|ZK.proof|zkML|ZKML|homomorphic|FHE|proof.of.inference|attestation|on.chain.inference)\b/i;
+
+export function verifiableInfraScore(text: string): number {
+  if (!VERIFIABLE_INFRA_RE.test(text)) return 0;
+  // Only count if the text also mentions AI — filters out pure crypto/blockchain
+  if (AI_KEYWORDS_T1.test(text) || AI_KEYWORDS_T2.test(text)) return 1;
+  return 0;
+}

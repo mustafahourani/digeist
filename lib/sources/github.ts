@@ -4,7 +4,7 @@ import path from "path";
 import type { GitHubRepo } from "@/lib/types";
 import { getYesterday, NON_LATIN_RE } from "@/lib/utils";
 import { getDigest } from "@/lib/storage";
-import { MS_PER_DAY } from "@/lib/scoring";
+import { MS_PER_DAY, verifiableInfraScore } from "@/lib/scoring";
 
 const GITHUB_API = "https://api.github.com";
 const STAR_CACHE_PATH = path.join(process.cwd(), "data", "github-star-cache.json");
@@ -398,7 +398,7 @@ async function claudeRelevanceScores(
         content: `Rate each repo 1-10 on how interesting it is for an AI practitioner focused on AI agents and what people are building with them.
 
 SCORING GUIDE:
-- 9-10: Groundbreaking agent tool, novel MCP server, first-of-its-kind AI application
+- 9-10: Groundbreaking agent tool, novel MCP server, first-of-its-kind AI application, verifiable AI infra (TEE/ZK for ML inference) with real code
 - 7-8: Solid practical tool for agents/AI, interesting infrastructure, creative use of LLMs
 - 5-6: Tangentially related to AI agents, useful but not novel
 - 3-4: General ML/AI but not agent-related, standard tutorials
@@ -517,6 +517,10 @@ function computeRepoScore(
     ? (claudeScore / 10) * 15  // 10/10 → 15pts, 5/10 → 7.5pts, 1/10 → 1.5pts
     : 0;
 
+  // Signal 10: Verifiable AI infra bonus
+  const descText = (repo.description || "") + " " + (repo.topics || []).join(" ");
+  const verifiableInfra = verifiableInfraScore(descText);
+
   const finalScore =
     deltaScore +
     velocityScore +
@@ -526,7 +530,8 @@ function computeRepoScore(
     orgBonus +
     forkScore +
     forkRatioBonus +
-    semanticScore;
+    semanticScore +
+    verifiableInfra * 3;
 
   return {
     repo,
@@ -580,6 +585,7 @@ FOCUS ON NOVELTY & SURPRISE:
 - First-of-its-kind tools (first MCP server for X, first agent that does Y)
 - Creative applications of AI that show where the field is heading
 - High fork counts = people are building on this, strong quality signal
+- Verifiable AI infrastructure: TEE, ZK proofs, secure enclaves applied to ML inference
 
 REMOVE:
 - Repos NOT actually about AI, ML, LLMs, agents, or related technology
@@ -596,6 +602,7 @@ FOCUS ON "WHY NOW?":
 - New major release, viral demo, or real-world adoption milestone
 - Tools that crossed a usability threshold (from experimental → production-ready)
 - High fork-to-star ratio or fork growth = people are actually building on this, not just bookmarking
+- Verifiable AI compute tools gaining traction (TEE, ZK, confidential computing for ML)
 
 DEPRIORITIZE:
 - Well-known repos from major orgs (OpenAI, Google, Meta) UNLESS the update is genuinely significant

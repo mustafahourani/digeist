@@ -3,7 +3,7 @@ import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
 import type { RedditPost } from "@/lib/types";
 import { extractDomain } from "@/lib/utils";
-import { aiRelevanceScore, discussionHeat, MS_PER_DAY } from "@/lib/scoring";
+import { aiRelevanceScore, discussionHeat, ecosystemBackingScore, revenueFundingScore, verifiableInfraScore, MS_PER_DAY } from "@/lib/scoring";
 import keywords from "@/config/keywords.json";
 
 const REDDIT_BASE = "https://www.reddit.com";
@@ -220,9 +220,16 @@ function computeCompositeScore(post: RedditApiPost): ScoredPost {
   // Signal 7: Upvote ratio quality
   const ratioMult = upvoteRatioMultiplier(post.upvote_ratio);
 
+  // Signal 8-10: Tracking criteria bonuses
+  const textForSignals = post.title + (post.is_self ? " " + (post.selftext || "").slice(0, 500) : "");
+  const ecosystemBacking = ecosystemBackingScore(textForSignals);
+  const revenueFunding = revenueFundingScore(textForSignals);
+  const verifiableInfra = verifiableInfraScore(textForSignals);
+
   // AI relevance is the DOMINANT signal (weight 12)
+  // Tracking criteria: small additive bonuses (+2/+3)
   const finalScore =
-    (baseScore * 3 + aiRel * 12 + velocityBonus * 2) *
+    (baseScore * 3 + aiRel * 12 + velocityBonus * 2 + ecosystemBacking * 2 + revenueFunding * 2 + verifiableInfra * 3) *
     heat *
     subTier *
     domainScore *
@@ -266,6 +273,10 @@ KEEP:
 - Model releases relevant to agent use cases
 - "I built X with agents" show-and-tell posts with novel applications
 - High-discussion posts about agent tooling, workflows, or infrastructure
+- Viral AI product launches, demos, or tools gaining rapid community adoption
+- Companies with notable ecosystem backing (YC, a16z, major VCs) building agent tools
+- Revenue/funding signals — AI startups sharing growth metrics, fundraising, or traction
+- Verifiable AI infrastructure (TEE, ZK proofs, secure enclaves for ML inference)
 
 REMOVE:
 - Posts NOT about AI agents, tool use, coding agents, LLMs, or related technology
@@ -284,6 +295,9 @@ KEEP:
 - Deep technical posts about agent architectures, MCP, tool use patterns
 - Posts with high comment-to-score ratio (active discussion = community signal)
 - Community discoveries — "this tool/approach actually works in production"
+- Viral AI tools or demos that sustained community interest over days
+- AI startups sharing funding/revenue milestones or notable institutional backing
+- Verifiable/trustworthy AI compute stories (TEE, ZK, confidential ML)
 
 REMOVE:
 - Posts NOT about AI agents, tool use, coding agents, LLMs, or related technology

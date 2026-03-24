@@ -3,7 +3,7 @@ import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
 import type { HNStory } from "@/lib/types";
 import { extractDomain } from "@/lib/utils";
-import { aiRelevanceScore, discussionHeat, MS_PER_DAY } from "@/lib/scoring";
+import { aiRelevanceScore, discussionHeat, ecosystemBackingScore, revenueFundingScore, verifiableInfraScore, MS_PER_DAY } from "@/lib/scoring";
 
 const HN_API = "https://hacker-news.firebaseio.com/v0";
 const HN_ALGOLIA = "https://hn.algolia.com/api/v1";
@@ -182,11 +182,17 @@ function computeCompositeScore(
   // Signal 6: Domain trust multiplier
   const domainScore = getDomainScore(url);
 
+  // Signal 7-9: Tracking criteria bonuses
+  const ecosystemBacking = ecosystemBackingScore(item.title);
+  const revenueFunding = revenueFundingScore(item.title);
+  const verifiableInfra = verifiableInfraScore(item.title);
+
   // AI relevance is the DOMINANT signal (weight 12)
   // Base score provides a floor (weight 3)
   // Velocity rewards fast risers (weight 2)
+  // Tracking criteria: small additive bonuses (+2/+3)
   const finalScore =
-    (baseScore * 3 + aiRel * 12 + velocityBonus * 2) *
+    (baseScore * 3 + aiRel * 12 + velocityBonus * 2 + ecosystemBacking * 2 + revenueFunding * 2 + verifiableInfra * 3) *
     heat *
     showHnBonus *
     domainScore;
@@ -230,6 +236,10 @@ KEEP:
 - Research breakthroughs, benchmarks, and model releases
 - Infrastructure, deployment, and scaling stories relevant to AI practitioners
 - Developer experience stories (using AI tools, coding agents, etc.)
+- Viral AI launches, trending demos, or products going viral
+- Companies with notable backing (YC, a16z, major VCs) building AI tools
+- Revenue/funding milestones for AI companies (ARR, MRR, fundraising rounds)
+- Verifiable AI infrastructure (TEE, ZK proofs, secure enclaves applied to AI/ML)
 
 REMOVE:
 - Stories NOT related to AI, ML, LLMs, agents, or tech that AI practitioners care about
@@ -247,6 +257,9 @@ KEEP:
 - Deep technical posts (blog posts, papers) that aged well
 - Show HN posts that gained real traction
 - Important policy, regulation, or business developments affecting AI
+- Viral AI launches that sustained discussion over multiple days
+- AI companies announcing funding rounds, revenue milestones, or notable backing
+- Verifiable/trustworthy AI infrastructure stories (TEE, ZK, secure computation for ML)
 
 REMOVE:
 - Stories NOT related to AI, ML, LLMs, agents, or tech that AI practitioners care about
