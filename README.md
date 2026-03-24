@@ -65,18 +65,18 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 
 **Scoring formula** — all 10 signals are added together for a max of ~68 points:
 
-| Signal | How it's calculated | Max pts |
-|--------|-------------------|---------|
-| Star delta | `log2(stars gained since last run) × 1.5` — a repo that gained 100 stars yesterday scores 6.6, 500 stars scores 9.0 | 10 |
-| Stars-per-day velocity | `log2(total stars / age in days) × 2` — only used as fallback when no delta data exists | 6 |
-| Freshness | Based on repo age: created <1 day ago = 8pts, <3 days = 5pts, <7 days = 3pts, <14 days = 1pt, <30 days = 0.3pts, older = 0 | 8 |
-| Trending page bonus | 4pts if the repo appeared on any of GitHub's 4 trending pages, 0 otherwise | 4 |
-| Query hit count | Each additional search query match beyond the first adds 0.5pts — a repo matching 5 different queries is broadly relevant | 2 |
-| Org reputation | Indie developers = 3pts (highest discovery value), known orgs (LangChain, Ollama) = 1pt, major orgs (OpenAI, Google, Meta) = 0pts — they already surface through HN | 3 |
-| Fork count | `log2(forks) × 2.5` — capped higher than stars because forks = someone actually building on it | 12 |
-| Fork-to-star ratio | >30% ratio = 5pts, >15% = 2.5pts — 30 stars with 10 forks is a stronger signal than 1000 stars with 2 forks | 5 |
-| Claude semantic score | Claude Sonnet 4.5 rates each repo 1-10 on how interesting it is for AI practitioners, then scaled: `(rating / 10) × 15`. A 10/10 = 15pts, 5/10 = 7.5pts. **Highest-cap signal** because Claude understands context numbers can't — e.g. a repo called "garden-planner" that's actually an agent orchestration framework | 15 |
-| Verifiable AI infra | 3pts if repo description or topics mention TEE, ZK proofs, secure enclaves, etc. **and** also contain AI-related terms. Pure crypto/blockchain repos get 0 | 3 |
+| Signal | In plain English | How it's calculated | Max pts |
+|--------|-----------------|-------------------|---------|
+| Star delta | How fast is this blowing up right now? | `log2(stars gained since last run) × 1.5` — 100 new stars = 6.6pts, 500 = 9.0pts | 10 |
+| Stars-per-day velocity | How fast did it grow overall? (backup metric) | `log2(total stars / age in days) × 2` — only used when no delta data exists | 6 |
+| Freshness | How new is this project? | Repo age: <1 day = 8pts, <3 days = 5pts, <7 days = 3pts, <14 days = 1pt, older = 0 | 8 |
+| Trending page bonus | Is GitHub itself featuring this? | 4pts if on any of GitHub's 4 trending pages, 0 otherwise | 4 |
+| Query hit count | Does it match lots of AI-related searches? | Each additional query match beyond the first adds 0.5pts | 2 |
+| Org reputation | Is this from an unknown builder worth discovering? | Indie devs = 3pts, known orgs (LangChain, Ollama) = 1pt, big corps (OpenAI, Google) = 0pts | 3 |
+| Fork count | Are people actually building on top of this? | `log2(forks) × 2.5` — forks mean real usage, not just bookmarking | 12 |
+| Fork-to-star ratio | Are people using it or just starring it? | >30% forks-to-stars = 5pts, >15% = 2.5pts | 5 |
+| Claude semantic score | Is this actually interesting for AI practitioners? | Claude rates 1-10, scaled to 0-15pts. **Highest-weight signal** — catches context numbers miss | 15 |
+| Verifiable AI infra | Is this about provably secure AI? | 3pts if mentions TEE/ZK/secure enclaves **and** AI terms. Pure crypto = 0 | 3 |
 
 **Column split:** Repos created <24 hours ago go into "Hottest Today." Repos 1-7 days old with traction signals (star/fork deltas or 100+ stars) go into "Trending This Week." Major org repos only make "Trending" if Claude rated them ≥7/10. Each column's top 30 by score go to Claude, which selects the final 10.
 
@@ -88,17 +88,17 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 
 **Scoring formula:** `(baseScore × 3 + aiRelevance × 12 + velocity × 2 + ecosystemBacking × 2 + revenueFunding × 2 + verifiableInfra × 3) × heat × showHnBonus × domainTrust`
 
-| Signal | How it's calculated | Weight/Range |
-|--------|-------------------|-------------|
-| Base score | `log2(HN points)` — compresses so 100pts = 6.6, 400pts = 8.6, 900pts = 9.8. Prevents mega-posts from drowning everything else | ×3 in formula |
-| AI relevance | Three-tier keyword matching against the title. **Tier 1** (full weight): definitive AI terms — `llm`, `openai`, `anthropic`, `claude`, `deepseek`, `chatgpt`, `generative ai`, etc. **Tier 2** (0.6× weight): probably AI — `agent`, `inference`, `embedding`, `vector`, `rag`, `mcp`, `cursor`, `copilot`, etc. **Tier 3** (0.3× weight): weak signals — `model`, `training`, `dataset`, `api`, `scaling` — only counted if a Tier 1 or 2 keyword is also present. Raw score normalized to 0-1 with diminishing returns. **This is the dominant signal at ×12 weight** | ×12 in formula (0-1 scale) |
-| Velocity | `points per hour since posting / 50`, capped at 2.0 — a post with 50pts in 1 hour (velocity 1.0) beats a post with 100pts in 10 hours (velocity 0.2) | ×2 in formula |
-| Ecosystem/backing | 1 if title mentions YC, a16z, Product Hunt, Sequoia, Greylock, Techstars, etc. 0 otherwise | ×2 in formula |
-| Revenue/funding | 1 if title mentions ARR, MRR, revenue, seed round, Series A/B/C, raised $X, etc. 0 otherwise | ×2 in formula |
-| Verifiable AI infra | 1 if title mentions TEE, ZK proofs, secure enclaves, etc. **and** contains AI terms. 0 otherwise. Filters out pure crypto | ×3 in formula |
-| Discussion heat | `1 + (comments/score ratio, capped at 2.0) × 0.25` — returns a 1.0-1.5× multiplier. A post with 200 comments and 100 upvotes (ratio 2.0) gets 1.5× — high discussion relative to score means genuine debate, not drive-by likes | 1.0-1.5× multiplier |
-| Show HN bonus | 1.3× multiplier for Show HN posts, 1.0× for everything else — builders showing real work get a boost | 1.0-1.3× multiplier |
-| Domain trust | Tier 1 domains (openai.com, anthropic.com, arxiv.org, deepmind.google, huggingface.co, etc.) = 1.2×. Tier 2 (github.com, pytorch.org, nvidia.com, kaggle.com) = 1.1×. Everything else = 1.0× | 1.0-1.2× multiplier |
+| Signal | In plain English | How it's calculated | Weight/Range |
+|--------|-----------------|-------------------|-------------|
+| Base score | How popular is this post? | `log2(HN points)` — 100pts = 6.6, 400pts = 8.6, 900pts = 9.8. Compresses so mega-posts don't drown everything | ×3 in formula |
+| AI relevance | How AI-related is this? | 3-tier keyword match. **Tier 1**: definitive (`llm`, `openai`, `claude`, etc.). **Tier 2** (0.6×): probably AI (`agent`, `mcp`, `embedding`). **Tier 3** (0.3×): weak (`model`, `training`) — only counts if Tier 1/2 present. **Dominant signal** | ×12 in formula (0-1 scale) |
+| Velocity | How fast is this gaining attention? | `points per hour / 50`, capped at 2.0 — 50pts in 1 hour beats 100pts in 10 hours | ×2 in formula |
+| Ecosystem/backing | Is a notable backer involved? | 1 if title mentions YC, a16z, Product Hunt, Sequoia, Techstars, etc. 0 otherwise | ×2 in formula |
+| Revenue/funding | Is there a money milestone? | 1 if title mentions ARR, MRR, revenue, seed round, Series A/B/C, raised $X, etc. 0 otherwise | ×2 in formula |
+| Verifiable AI infra | Is this about provably secure AI? | 1 if mentions TEE, ZK proofs, secure enclaves **and** AI terms. 0 otherwise. Filters out pure crypto | ×3 in formula |
+| Discussion heat | Are people actually debating this? | Comment-to-score ratio → 1.0-1.5× multiplier. 200 comments on 100 upvotes = 1.5× | 1.0-1.5× multiplier |
+| Show HN bonus | Is someone showing real work they built? | 1.3× for Show HN posts, 1.0× for everything else | 1.0-1.3× multiplier |
+| Domain trust | Is this from a reputable source? | Tier 1 (openai.com, arxiv.org, anthropic.com) = 1.2×. Tier 2 (github.com, pytorch.org) = 1.1×. Other = 1.0× | 1.0-1.2× multiplier |
 
 **Column split:** Stories <24 hours old go into "Hottest Today." Stories 1-7 days old with ≥30 HN points go into "Trending This Week." Each column's top 30 go to Claude for final selection of 10.
 
@@ -110,11 +110,11 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 
 Same base formula as HN (base score, AI relevance, velocity, discussion heat, ecosystem/backing, revenue/funding, verifiable infra — all calculated identically), plus these Reddit-specific multipliers:
 
-| Signal | How it's calculated | Range |
-|--------|-------------------|-------|
-| Subreddit tier | Core subs (r/AutoGPT, r/LangChain, r/LocalLLaMA) = 1.3× — these are the builder communities where agent-specific content lives. Major subs (r/MachineLearning, r/OpenAI, r/Anthropic) = 1.1×. General subs = 1.0× | 1.0-1.3× multiplier |
-| Upvote ratio | >95% community agreement = 1.15× boost. 85-95% = 1.0× (normal). 70-85% = 0.9×. Below 70% = 0.8× penalty — controversial or low-quality posts get suppressed | 0.8-1.15× multiplier |
-| Domain trust | Self-posts = 1.0×. Links to Tier 1 AI domains = 1.2×, Tier 2 = 1.1× (same domain lists as HN) | 1.0-1.2× multiplier |
+| Signal | In plain English | How it's calculated | Range |
+|--------|-----------------|-------------------|-------|
+| Subreddit tier | Is this from a core builder community? | Core (r/AutoGPT, r/LangChain, r/LocalLLaMA) = 1.3×. Major (r/MachineLearning, r/OpenAI, r/Anthropic) = 1.1×. General = 1.0× | 1.0-1.3× multiplier |
+| Upvote ratio | Does the community actually agree this is good? | >95% = 1.15× boost. 85-95% = 1.0×. 70-85% = 0.9×. <70% = 0.8× penalty | 0.8-1.15× multiplier |
+| Domain trust | Is the linked source reputable? | Self-posts = 1.0×. Tier 1 AI domains = 1.2×, Tier 2 = 1.1× (same lists as HN) | 1.0-1.2× multiplier |
 
 **Body text scanning:** For Reddit self-posts, the AI relevance, ecosystem/backing, revenue/funding, and verifiable infra signals check the first 500 characters of the post body in addition to the title. A post where someone describes their YC-backed seed round in the body text (not just the title) still gets caught.
 
