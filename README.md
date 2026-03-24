@@ -49,95 +49,66 @@ There is no database. Digests are flat JSON files stored in `data/digests/` and 
 | `/` | Redirects to today's digest |
 | `/digest/[date]` | Daily digest for a specific date |
 | `/archive` | List of all available digests |
-| `/api/cron/generate` | Protected endpoint to trigger digest generation |
 
 ## Scoring
 
-Every item goes through a multi-signal composite scoring system before Claude does a final semantic filter. The signals vary by source but follow the same philosophy: combine numeric signals with AI judgment.
+Every item goes through two stages: (1) a numeric scoring algorithm ranks everything, then (2) Claude Sonnet 4.5 reads the top 30 candidates and picks the final 10 for each column. Each source splits results into **Hottest Today** (last 24 hours) and **Trending This Week** (2-7 days old, still generating buzz).
 
-### Shared signals (`lib/scoring.ts`)
+### GitHub — what's being built
 
-**AI relevance score (0-1)** — Three-tier keyword matching against the title (and selftext for Reddit):
-- **Tier 1** (full weight): Definitive AI terms — `llm`, `openai`, `anthropic`, `claude`, `deepseek`, `chatgpt`, `fine-tun`, `generative ai`, etc.
-- **Tier 2** (0.6x): Probably AI — `agent`, `inference`, `embedding`, `vector`, `rag`, `mcp`, `cursor`, `copilot`, `transformer`, etc.
-- **Tier 3** (0.3x): Weak signals — `model`, `training`, `dataset`, `parameters`, `api`, `scaling`, etc. Only counted if a Tier 1 or Tier 2 keyword is also present.
+GitHub scores repos across 10 signals to surface what's gaining real traction in the AI space:
 
-Normalized to 0-1 with diminishing returns: `min(1, 0.5 + raw * 0.15)`
+| Signal | What it tells us |
+|--------|-----------------|
+| Star delta | How many stars it gained since yesterday — raw momentum |
+| Stars-per-day velocity | Fallback when no delta data is available |
+| Freshness | Newer repos score higher — a 1-day-old repo with 50 stars beats a 2-year-old one with 50 |
+| Trending page | Bonus if GitHub itself features it on trending |
+| Query hit count | Matches multiple search queries = broadly relevant |
+| Org reputation | Indie devs get the highest bonus (discovery value). Major orgs (OpenAI, Google) get zero — they surface through HN anyway |
+| Fork count | Forks mean people are building on it, not just bookmarking |
+| Fork-to-star ratio | A repo with 30 stars and 10 forks is stronger signal than 1000 stars and 2 forks |
+| Claude semantic score | Claude rates 1-10 how interesting the repo is for AI practitioners. Highest-weight signal — catches things numbers can't, like a repo called "garden-planner" that's actually an agent orchestration framework |
+| Verifiable AI infra | Bonus for repos involving TEE, ZK proofs, or secure enclaves applied to AI (not general crypto) |
 
-**Discussion heat multiplier (1.0-1.5)** — Comment-to-score ratio. A post with 200 comments and 100 upvotes (ratio 2.0) gets a 1.5x multiplier. High discussion relative to score signals genuine community interest, not just drive-by upvotes.
+GitHub also uses **dynamic query generation**: Claude reads yesterday's digest and generates 3-5 new search queries based on what's trending, making the search adaptive rather than static.
 
-### Tracking criteria signals (`lib/scoring.ts`)
+### Hacker News — what's being talked about
 
-Three binary (0/1) bonus signals that surface posts matching specific tracking criteria. Each returns 0 or 1 and is applied as a small additive bonus — enough to break ties, not enough to override AI relevance.
+HN scores stories across 9 signals. AI relevance is the dominant signal — everything else modifies it:
 
-| Signal | What it matches | Sources | Bonus |
-|--------|----------------|---------|-------|
-| Ecosystem/backing | YC, a16z, Product Hunt, Sequoia, Techstars, etc. | HN, Reddit | +2 pts |
-| Revenue/funding | ARR, MRR, seed rounds, series raises, revenue milestones | HN, Reddit | +2 pts |
-| Verifiable AI infra | TEE, ZK proofs, secure enclaves, confidential computing — **only when co-occurring with AI terms** (filters out pure crypto) | GitHub, HN, Reddit | +3 pts |
+| Signal | What it tells us |
+|--------|-----------------|
+| Base score | Raw HN points, log-compressed so a 900-point post doesn't completely drown out a 100-point one |
+| AI relevance | 3-tier keyword system. Tier 1 = definitive AI terms (LLM, OpenAI, Claude). Tier 2 = probably AI (agent, MCP, embedding). Tier 3 = weak signals (model, training) only counted if Tier 1/2 also present. **Dominant signal** |
+| Velocity | Points per hour — a post with 50 points in 1 hour beats 100 points in 10 hours |
+| Discussion heat | Comment-to-score ratio. High comments relative to upvotes = genuine debate, not drive-by likes |
+| Show HN bonus | 1.3x boost for Show HN posts — builders showing real work |
+| Domain trust | Posts from openai.com, anthropic.com, arxiv.org = 1.2x boost. GitHub, pytorch.org = 1.1x |
+| Ecosystem/backing | Bonus for mentions of YC, a16z, Product Hunt, Sequoia, or other notable backers |
+| Revenue/funding | Bonus for mentions of ARR, MRR, seed rounds, fundraising milestones |
+| Verifiable AI infra | Bonus for TEE, ZK proofs applied to AI (only when AI terms co-occur — filters out pure crypto) |
 
-Virality is not a separate scoring signal — it's already captured by velocity, base score, and discussion heat. The Claude filter prompts explicitly mention virality as a selection criterion.
+Data comes from 5 Firebase feeds (top, best, show, new, ask) plus Algolia keyword searches that catch AI stories from the past week that dropped off the live feeds.
 
-### GitHub scoring (10 signals)
+### Reddit — what the community is validating
 
-| Signal | What it measures | Max contribution |
-|--------|-----------------|------------------|
-| Star delta | Stars gained since last run (log2 compressed) | 10 pts |
-| Stars-per-day velocity | Fallback when no delta available | 6 pts |
-| Freshness | Repo age: <1 day = 8pts, <3 days = 5pts, <7 days = 3pts, <14 days = 1pt | 8 pts |
-| Trending page bonus | Appeared on GitHub trending | 4 pts |
-| Query hit count | Matched multiple search queries (breadth of relevance) | 2 pts |
-| Org reputation | indie = 3pts (highest discovery value), known = 1pt, major = 0 (they surface via HN anyway) | 3 pts |
-| Fork score | Fork count (log2 compressed, capped higher than stars because forks = real usage) | 12 pts |
-| Fork-to-star ratio | >30% = 5pts, >15% = 2.5pts — people building on this, not just bookmarking | 5 pts |
-| Claude semantic score | Claude rates 1-10 how interesting the repo is for AI practitioners, scaled to 0-15pts. Highest-cap signal because Claude understands context numbers can't. | 15 pts |
-| Verifiable AI infra | Repo description/topics mention TEE, ZK, secure enclaves etc. + AI co-occurrence | 3 pts |
+Reddit uses the same base formula as HN (AI relevance as dominant signal, velocity, discussion heat), plus Reddit-specific signals:
 
-After scoring, repos are split into **new** (<24h old) and **trending** (older but gaining traction), then Claude picks the top 10 for each column from the top 30 candidates.
+| Signal | What it tells us |
+|--------|-----------------|
+| Subreddit tier | Core subs (r/LocalLLaMA, r/AutoGPT, r/LangChain) = 1.3x — builder communities. Major subs (r/MachineLearning, r/OpenAI) = 1.1x |
+| Upvote ratio | >95% agreement = 1.15x boost. Below 70% = 0.8x penalty. Filters controversial or low-quality posts |
+| Ecosystem/backing | Bonus for mentions of YC, a16z, Product Hunt, major VCs |
+| Revenue/funding | Bonus for mentions of ARR, MRR, seed rounds, fundraising |
+| Verifiable AI infra | Bonus for TEE, ZK proofs applied to AI (with AI co-occurrence filter) |
+| Body text scanning | Reddit self-posts get their body text checked too — a post describing a funding round in the text (not just the title) still gets caught |
 
-GitHub also uses **dynamic query generation**: Claude reads yesterday's digest and generates 3-5 additional search queries based on what's actually trending, making the search adaptive rather than static.
+### Claude semantic filter
 
-### Hacker News scoring (9 signals)
+After numeric scoring, the top 30 candidates from each column are sent to Claude Sonnet 4.5 with source-specific prompts. Claude picks the final 10, ordered by value — catching nuance that numbers miss, like deduplicating coverage of the same event, filtering rage-bait with high scores, or recognizing that a cryptically-named repo is actually a breakthrough agent tool.
 
-Formula: `(baseScore × 3 + aiRelevance × 12 + velocityBonus × 2 + ecosystemBacking × 2 + revenueFunding × 2 + verifiableInfra × 3) × heat × showHnBonus × domainScore`
-
-| Signal | What it measures | Details |
-|--------|-----------------|---------|
-| Base score | HN points (log2 compressed) | 100pts → 6.6, 400pts → 8.6, 900pts → 9.8 |
-| AI relevance | Keyword match score (dominant signal, weight 12) | 0-1 scale from shared scoring |
-| Velocity | Points per hour since posting | Capped at 2.0 — rewards fast risers |
-| Discussion heat | Comment-to-score ratio multiplier | 1.0-1.5x |
-| Show HN bonus | Multiplier for Show HN posts | 1.3x (builders showing real work) |
-| Domain trust | Source domain tier | Tier 1 (openai.com, anthropic.com, arxiv.org, etc.) = 1.2x, Tier 2 (github.com, pytorch.org, nvidia.com, etc.) = 1.1x |
-| Ecosystem/backing | Mentions YC, a16z, Product Hunt, major VCs | +2 (binary) |
-| Revenue/funding | Mentions ARR, MRR, seed rounds, funding, revenue | +2 (binary) |
-| Verifiable AI infra | TEE, ZK, secure enclaves + AI co-occurrence | +3 (binary) |
-
-Stories are split into **hot** (<24h) and **rising** (1-7 days, 30+ points minimum), then Claude picks the top 10 for each column.
-
-Data comes from 5 Firebase feeds (top, best, show, new, ask) plus 3 Algolia keyword searches that catch AI stories from the past week that dropped off the live feeds.
-
-### Reddit scoring (10 signals)
-
-Formula: `(baseScore × 3 + aiRelevance × 12 + velocityBonus × 2 + ecosystemBacking × 2 + revenueFunding × 2 + verifiableInfra × 3) × heat × subTier × domainScore × ratioMult`
-
-Same base formula as HN, plus two Reddit-specific signals:
-
-| Signal | What it measures | Details |
-|--------|-----------------|---------|
-| Subreddit tier | Source quality | Core (AutoGPT, LangChain, LocalLLaMA) = 1.3x, Major (MachineLearning, OpenAI, Anthropic) = 1.1x, General = 1.0x |
-| Upvote ratio | Community agreement | >95% = 1.15x, 85-95% = 1.0x, 70-85% = 0.9x, <70% = 0.8x |
-| Ecosystem/backing | Mentions YC, a16z, Product Hunt, major VCs | +2 (binary) |
-| Revenue/funding | Mentions ARR, MRR, seed rounds, funding, revenue | +2 (binary) |
-| Verifiable AI infra | TEE, ZK, secure enclaves + AI co-occurrence | +3 (binary) |
-
-Posts are split into **hot** (<24h) and **rising** (1-7 days, 30+ points minimum), then Claude picks the top 10 for each column.
-
-### Claude semantic filter (all sources)
-
-After numeric scoring, the top 30 candidates from each column are sent to Claude Sonnet with source-specific prompts. Claude picks the final 10, ordered by value. The prompts tell Claude what to keep (major announcements, new tools, Show HN with novel applications, deep technical posts, viral launches, ecosystem-backed projects, revenue/funding milestones, verifiable AI infra) and what to remove (off-topic, duplicates, clickbait, low-effort content).
-
-If the Claude call fails, the system falls back to the numeric score ordering.
+The prompts tell Claude to prioritize: major announcements, new tools, viral launches, ecosystem-backed projects, revenue/funding milestones, and verifiable AI infrastructure. If the Claude call fails, the system falls back to pure numeric ordering.
 
 ### Cross-source amplification
 
@@ -222,7 +193,6 @@ digeist/
 │   ├── page.tsx                    # Homepage (redirect to today)
 │   ├── digest/[date]/page.tsx      # Daily digest view
 │   ├── archive/page.tsx            # Archive listing
-│   └── api/cron/generate/route.ts  # Protected cron endpoint
 ├── components/
 │   ├── digest/
 │   │   ├── digest-page.tsx         # Main digest layout (tabbed: GitHub/HN/Reddit)
