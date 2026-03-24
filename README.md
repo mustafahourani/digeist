@@ -51,25 +51,6 @@ There is no database. Digests are flat JSON files stored in `data/digests/` and 
 | `/archive` | List of all available digests |
 | `/api/cron/generate` | Protected endpoint to trigger digest generation |
 
-## How the pipeline works
-
-### Sources
-
-**GitHub** — Searches for repos matching AI topics (`ai-agents`, `llm`, `mcp`, `rag`, etc.) with 50+ stars. Scrapes the GitHub trending page for additional signal. Tracks star/fork deltas using a local cache. Classifies orgs into tiers: major (OpenAI, Anthropic, Google), known (LangChain, Ollama), and indie (highest discovery value).
-
-**Hacker News** — Pulls from 5 Firebase feeds (top, best, show, new, ask) plus Algolia keyword searches for AI topics. Scores using composite signals: base score, AI relevance, velocity, discussion heat, Show HN bonus, and domain trust tier.
-
-**Reddit** — Fetches hot + top/week from 9 subreddits: MachineLearning, LocalLLaMA, OpenAI, Anthropic, artificial, AutoGPT, LangChain, singularity, ChatGPTCoding. Scores with subreddit tier weighting and upvote ratio.
-
-### AI processing
-
-Claude Sonnet is used for:
-- **Semantic filtering** — rates candidate items for AI relevance (not just keyword matching)
-- **Scoring** — assigns quality scores to GitHub repos based on description, category, and novelty
-- **Summarization** — generates one-line summaries for HN stories
-- **Title cleanup** — rewrites verbose Reddit titles into clean, scannable text
-- **Description enhancement** — rewrites GitHub repo descriptions for clarity
-
 ## Scoring
 
 Every item goes through a multi-signal composite scoring system before Claude does a final semantic filter. The signals vary by source but follow the same philosophy: combine numeric signals with AI judgment.
