@@ -75,7 +75,7 @@ Each source splits results into two columns: **Hottest Today** (last 24 hours) a
 | Org reputation | Is this from an unknown builder worth discovering? | Indie devs = 3pts, known orgs (LangChain, Ollama) = 1pt, big corps (OpenAI, Google) = 0pts | 3 |
 | Fork count | Are people actually building on top of this? | `log2(forks) × 2.5` — forks mean real usage, not just bookmarking | 12 |
 | Fork-to-star ratio | Are people using it or just starring it? | >30% forks-to-stars = 5pts, >15% = 2.5pts | 5 |
-| Claude semantic score | Is this actually interesting for AI practitioners? | Claude rates 1-10, scaled to 0-15pts. **Highest-weight signal** — catches context numbers miss | 15 |
+| Claude semantic score | Is this actually interesting for AI practitioners? | Claude rates 1-10, scaled to 0-15pts. **Highest-weight signal** — catches context numbers miss. Note: this is a *scoring* step that feeds into the ranking formula, separate from the Claude *filter* step later that picks the final 10 from the top 30. GitHub is the only source where Claude scores individual items before filtering. | 15 |
 | Verifiable AI infra | Is this about provably secure AI? | 3pts if mentions TEE/ZK/secure enclaves **and** AI terms. Pure crypto = 0 | 3 |
 
 **Column split:** Repos created <24 hours ago go into "Hottest Today." Repos 1-7 days old with traction signals (star/fork deltas or 100+ stars) go into "Trending This Week." Major org repos only make "Trending" if Claude rated them ≥7/10. Each column's top 30 by score go to Claude, which selects the final 10.
