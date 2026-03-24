@@ -27,7 +27,7 @@ export default async function DigestDatePage({ params }: DigestDatePageProps) {
               </div>
               <p className="text-[15px] font-medium mb-1">Digest not ready yet</p>
               <p className="text-[13px] text-muted-foreground">
-                Today&apos;s digest is generated daily at 12:30 PM EST
+                Digest will be ready at 12 PM EST
               </p>
             </>
           ) : isFuture ? (
