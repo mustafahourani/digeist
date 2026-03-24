@@ -81,24 +81,3 @@ export interface Digest {
   sections: DigestSections;
 }
 
-export interface WeeklyTheme {
-  name: string;
-  summary: string;
-  sentiment_avg: number;
-  days_appeared: number;
-  total_engagement: number;
-}
-
-export interface WeeklyDigest {
-  week: string;
-  start_date: string;
-  end_date: string;
-  generated_at: string;
-  top_themes: WeeklyTheme[];
-  source_highlights: {
-    github: string[];
-    hackernews: string[];
-    reddit: string[];
-  };
-  week_over_week: string;
-}

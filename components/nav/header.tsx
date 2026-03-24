@@ -7,7 +7,6 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   const pathname = usePathname();
-  const isWeekly = pathname.startsWith("/weekly");
   const isArchive = pathname === "/archive";
   return (
     <header className="border-b border-border bg-background/95 backdrop-blur-md sticky top-0 z-50">
@@ -20,8 +19,7 @@ export function Header() {
         <div className="flex items-center gap-1">
           <nav className="flex items-center gap-0.5">
             {[
-              { href: "/", label: "Daily", active: !isWeekly && !isArchive },
-              { href: "/weekly/latest", label: "Weekly", active: isWeekly },
+              { href: "/", label: "Daily", active: !isArchive },
               { href: "/archive", label: "Archive", active: isArchive },
             ].map(({ href, label, active }) => (
               <Link
